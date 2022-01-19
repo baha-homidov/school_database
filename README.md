@@ -1,1 +1,1 @@
-# school_database
+#Simple database for a school or university
