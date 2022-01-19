@@ -6,7 +6,7 @@ using namespace std;
 
 int main(){
   Student stud("Abdukadu Olimov", 2001, 20010602, "computer science");
-
+  return 0;
 }
 
 
