@@ -1,28 +1,47 @@
 #include <vector>
 #include <string>
+#include "date.h"
 using namespace std;
 
 
-class Student{
+class Student
+//class which holds the key info about the student
+{
 public:
-    Student(string new_name, int new_number, int new_birth_date, string new_major);
-    void set_name(string name);
-    void set_id_number(int number);  
-    void set_birth_date(int birth_date);
-    void set_major(string major);
-  
-    string name;
-    int id_number;
-    int birth_date;
-    string major;
-
+     Student(string n_name, string n_major, int n_id_number, Date n_birth_date, Date n_enroll_date);   //parameterized contructor
+private:
+     friend ostream& operator<<(ostream& os, const Student& s);    //overloaded ostream operator
+     string name;
+     string major;
+     int id_number;
+     Date birth_date;  
+     Date enroll_date;  //enrollment date
 };
+
+//------------------------------------------------------------------------------------------------------
+
+ostream& operator<<(ostream& os, const Student& s){
+  os<<"Full name: "<<s.name<<'\n'
+    <<"Birth date: "<<s.birth_date<<'\n'
+    <<"Student ID: "<<s.id_number<<'\n'
+    <<"Major: "<<s.major<<'\n'
+    <<"Enrollment date: "<<s.enroll_date<<'\n';
+    return os;
+}
+
+
+
+//------------------------------------------------------------------------------------------------------
+
+Student::Student(string n_name, string n_major, int n_id_number, Date n_birth_date, Date n_enroll_date){
+  name=n_name;
+  major=n_major;
+  id_number=n_id_number;
+  birth_date=n_birth_date;
+  enroll_date=n_enroll_date;
+}
 //************************************************************************************************
 
-Student::Student(string new_name, int new_number, int new_birth_date, string new_major){
-    name=new_name;
-    id_number=new_number;
-    birth_date=new_birth_date;
-    major=new_major;
-};
+
+
 

@@ -4,9 +4,28 @@
 using namespace std;
 
 
+
+
+
+
+
+
+
+
+
 int main(){
-  Student stud("Abdukadu Olimov", 2001, 20010602, "computer science");
-  return 0;
+try{
+Student student("Mirzobakhtiyor Homidov", "Ai", 19911192, {Month(6),2,2001}, {Month(9),2, 2021});
+cout<<student;
+}
+
+catch(exception& e)
+{
+  cerr<<e.what()<<endl;
+  return -1;
+}
+
+
 }
 
 
