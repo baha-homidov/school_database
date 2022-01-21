@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <vector>
 #include <stdexcept>
@@ -13,6 +14,7 @@ class School{
     vector<Student> students_list;
 public:
     void input_data();
+    void output_all(ostream& os);
 
 };
 
@@ -43,7 +45,10 @@ void School::input_data(){
     cin>>name;
     cout<<"Input major: ";
     cin>>major;
-    cout<<"Input birthday: \n Month: ";
+    cout<<"Input id_number: ";
+    cin>>id_number;
+    
+    cout<<"Input birthday: \nMonth: ";
     cin>>birth_month; 
     if(birth_month<1||birth_month>12) throw invalid_argument("Invalid month index. Index should in be in range 1-12\n");
     cout<<"Day: ";
@@ -66,9 +71,11 @@ void School::input_data(){
     }
 }
 
+//------------------------------------------------------------------------------------------------------------------------
 
-
-
-
-//------------------------------------------------------------------------------------------------------------
+void School::output_all(ostream& os){
+for(int i=0; i<students_list.size(); ++i){
+    os<<students_list[i];
+}
+}
 
