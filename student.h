@@ -17,6 +17,15 @@ private:
      Date birth_date;  
      Date enroll_date;  //enrollment date
 };
+//------------------------------------------------------------------------------------------------------
+
+Student::Student(string n_name, string n_major, int n_id_number, Date n_birth_date, Date n_enroll_date){
+  name=n_name;
+  major=n_major;
+  id_number=n_id_number;
+  birth_date=n_birth_date;
+  enroll_date=n_enroll_date;
+}
 
 //------------------------------------------------------------------------------------------------------
 
@@ -31,15 +40,7 @@ ostream& operator<<(ostream& os, const Student& s){
 
 
 
-//------------------------------------------------------------------------------------------------------
 
-Student::Student(string n_name, string n_major, int n_id_number, Date n_birth_date, Date n_enroll_date){
-  name=n_name;
-  major=n_major;
-  id_number=n_id_number;
-  birth_date=n_birth_date;
-  enroll_date=n_enroll_date;
-}
 //************************************************************************************************
 
 

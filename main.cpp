@@ -1,6 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include "student.h"
+#include "school.h"
 using namespace std;
 
 
@@ -14,16 +15,19 @@ using namespace std;
 
 
 int main(){
-try{
-Student student("Mirzobakhtiyor Homidov", "Ai", 19911192, {Month(6),2,2001}, {Month(9),2, 2021});
-cout<<student;
-}
+  try{
+  School my_school;
+  my_school.input_data();
 
-catch(exception& e)
-{
+
+
+
+  }
+  catch(exception& e)
+  {
   cerr<<e.what()<<endl;
   return -1;
-}
+  }
 
 
 }
