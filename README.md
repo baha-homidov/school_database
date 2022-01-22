@@ -1,1 +1,1 @@
-#Simple database for a school or university
+#Simple project to practice C++
