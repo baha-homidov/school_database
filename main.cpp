@@ -18,17 +18,16 @@ using namespace std;
 int main(){
   try{
   School my_school;
-  ofstream ofs {"file.txt"};
-  my_school.input_data();
-  my_school.output_all(ofs);
-
+  my_school.fill_from_file("file.txt");
+  my_school.print(cout);
+ 
 
 
 
   }
   catch(exception& e)
   {
-  cerr<<e.what()<<endl;
+  cerr<<"Error: "<<e.what()<<endl;
   return -1;
   }
 

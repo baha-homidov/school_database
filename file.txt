@@ -1,0 +1,35 @@
+Student_ID: 22352
+Full_name: Mirzobakhtiyor Homidov
+Birth_date: 8 2 2001
+Major: Artificial science and technologies
+Enrollment_date: 9 5 2005
+-----
+Student_ID: 22352
+Full_name: Mirzobakhtiyor Homidov
+Birth_date: 8 2 2001
+Major: Artificial science and technologies
+Enrollment_date: 9 5 2005
+-----
+Student_ID: 22352
+Full_name: Mirzobakhtiyor Homidov
+Birth_date: 8 2 2001
+Major: Artificial science and technologies
+Enrollment_date: 9 5 2005
+-----
+Student_ID: 22352
+Full_name: Mirzobakhtiyor Homidov
+Birth_date: 8 2 2001
+Major: Artificial science and technologies
+Enrollment_date: 9 5 2005
+-----
+Student_ID: 22352
+Full_name: Mirzobakhtiyor Homidov
+Birth_date: 8 2 2001
+Major: Artificial science and technologies
+Enrollment_date: 9 5 2005
+-----
+Student_ID: 22352
+Full_name: Mirzobakhtiyor Homidov
+Birth_date: 8 2 2001
+Major: Artificial science and technologies
+Enrollment_date: 9 5 2005

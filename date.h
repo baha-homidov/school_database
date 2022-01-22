@@ -1,6 +1,9 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <stdexcept>
+#include <sstream>
+#include <stdexcept>
 using namespace std;
 
 
@@ -23,7 +26,7 @@ string int_to_month(int i){      //helper function for Month to convert int to c
 //------------------------------------------------------------------------------------------------
 
 ostream& operator<<(ostream& os, Month m){       //ouput operator for Month
-  return os<<int_to_month(int(m));
+  return os<<int(m);
 }
 
 
@@ -33,6 +36,9 @@ struct Date{      //Date class to keep dates orginized and check for invalid dat
   Date(Month new_month, int new_day, int new_yer);
   Date();   //default constructor
   friend ostream& operator<<(ostream& os, const Date& d);
+  friend std::istream& operator>>(std::istream& is, Date& d);
+  void symbolic_print(std::ostream& os);
+  private:
   Month month;
   int day;
   int year;
@@ -64,5 +70,25 @@ os<<d.month<<' '<<d.day<<' '<<d.year;
 return os;
 }
 
+//------------------------------------------------------------------------------------------------
+
+std::istream &operator>>(std::istream& is, Date& d){
+  
+  int month, day, year;
+  is>>month>>day>>year;
+  if(month<1||month>12) throw std::invalid_argument("Invalid month index. Month shoould be in 1-12 range.\n");
+  if(day<1||month>31) throw std::invalid_argument("Invalid day index. Day shoould be in 1-31 range.\n");
+  if(year<1900||year>2030) throw std::invalid_argument("Invalid year index. Year shoould be in range 1900-2505,\n");
+  d.month=Month(month);
+  d.day=day;
+  d.year=year;
+  return is;
+}
+
+//------------------------------------------------------------------------------------------------
+
+void Date::symbolic_print(ostream& os){
+  os<<int_to_month(int(month))<<" "<<day<<" "<<year;
+}
 
 //************************************************************************************************

@@ -9,9 +9,10 @@ class Student
 //class which holds the key info about the student
 {
 public:
-     Student(string n_name, string n_major, int n_id_number, Date n_birth_date, Date n_enroll_date);   //parameterized contructor
-private:
+     Student(int n_id_number,string n_name, string n_major, Date n_birth_date, Date n_enroll_date);   //parameterized contructor
      friend ostream& operator<<(ostream& os, const Student& s);    //overloaded ostream operator
+     void symbolic_print(std::ostream& os);
+private:
      string name;
      string major;
      int id_number;
@@ -20,10 +21,11 @@ private:
 };
 //------------------------------------------------------------------------------------------------------
 
-Student::Student(string n_name, string n_major, int n_id_number, Date n_birth_date, Date n_enroll_date){
+//parametirized constructor
+Student::Student(int n_id_number,string n_name, string n_major, Date n_birth_date, Date n_enroll_date){
+  id_number=n_id_number;
   name=n_name;
   major=n_major;
-  id_number=n_id_number;
   birth_date=n_birth_date;
   enroll_date=n_enroll_date;
 }
@@ -31,16 +33,25 @@ Student::Student(string n_name, string n_major, int n_id_number, Date n_birth_da
 //------------------------------------------------------------------------------------------------------
 
 ostream& operator<<(ostream& os, const Student& s){
-  os<<"Full name: "<<s.name<<'\n'
-    <<"Birth date: "<<s.birth_date<<'\n'
-    <<"Student ID: "<<s.id_number<<'\n'
+  os<<"Student_ID: "<<s.id_number<<'\n'
+    <<"Full_name: "<<s.name<<'\n'
+    <<"Birth_date: "<<s.birth_date<<'\n'
     <<"Major: "<<s.major<<'\n'
-    <<"Enrollment date: "<<s.enroll_date<<'\n';
+    <<"Enrollment_date: "<<s.enroll_date<<'\n';
     return os;
 }
 
+//------------------------------------------------------------------------------------------------------
 
-
+//ouput Student's data formatted for readabilty
+void Student::symbolic_print(std::ostream& os){
+  os<<"Student_ID: "<<id_number<<'\n'
+    <<"Full_name: "<<name<<'\n';
+    birth_date.symbolic_print(os);
+    os<<"\nMajor: "<<major<<'\n';
+    enroll_date.symbolic_print(os);
+    os<<'\n';
+}
 
 //************************************************************************************************
 
