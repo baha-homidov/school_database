@@ -5,14 +5,16 @@
 using namespace std;
 
 
-class Student
+struct Student
 //class which holds the key info about the student
 {
-public:
+// public:
      Student(int n_id_number,string n_name, string n_major, Date n_birth_date, Date n_enroll_date);   //parameterized contructor
-     friend ostream& operator<<(ostream& os, const Student& s);    //overloaded ostream operator
      void symbolic_print(std::ostream& os);
-private:
+     int get_id();    //function to return Student's id number
+     string get_name();  //function to return Student's full name 
+     friend ostream& operator<<(ostream& os, const Student& s);    //overloaded ostream operator
+// private:
      string name;
      string major;
      int id_number;
@@ -53,6 +55,17 @@ void Student::symbolic_print(std::ostream& os){
     os<<'\n';
 }
 
+//------------------------------------------------------------------------------------------------------
+
+int Student::get_id(){  //function to return Student's id number
+  return id_number;
+}
+
+//------------------------------------------------------------------------------------------------------
+
+string Student::get_name(){  //function to return Student's full name 
+  return name;
+}
 //************************************************************************************************
 
 

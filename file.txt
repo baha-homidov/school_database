@@ -1,35 +1,35 @@
-Student_ID: 22352
-Full_name: Mirzobakhtiyor Homidov
+Student_ID: 0001
+Full_name: Alex Thompson
 Birth_date: 8 2 2001
 Major: Artificial science and technologies
 Enrollment_date: 9 5 2005
 -----
-Student_ID: 22352
-Full_name: Mirzobakhtiyor Homidov
+Student_ID: 3322
+Full_name: Brendon Rogers
 Birth_date: 8 2 2001
 Major: Artificial science and technologies
 Enrollment_date: 9 5 2005
 -----
-Student_ID: 22352
-Full_name: Mirzobakhtiyor Homidov
+Student_ID: 1112
+Full_name: Jose Mourinho
 Birth_date: 8 2 2001
 Major: Artificial science and technologies
 Enrollment_date: 9 5 2005
 -----
-Student_ID: 22352
-Full_name: Mirzobakhtiyor Homidov
+Student_ID: 8888
+Full_name: Carlo Ancelotti
 Birth_date: 8 2 2001
 Major: Artificial science and technologies
 Enrollment_date: 9 5 2005
 -----
-Student_ID: 22352
-Full_name: Mirzobakhtiyor Homidov
+Student_ID: 1212
+Full_name: Roland Atkinson
 Birth_date: 8 2 2001
 Major: Artificial science and technologies
 Enrollment_date: 9 5 2005
 -----
-Student_ID: 22352
-Full_name: Mirzobakhtiyor Homidov
+Student_ID: 3333
+Full_name: Peter Parker
 Birth_date: 8 2 2001
 Major: Artificial science and technologies
 Enrollment_date: 9 5 2005

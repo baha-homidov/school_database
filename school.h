@@ -14,7 +14,10 @@ using namespace std;
 
 class School{
     vector<Student> students_list;
+
 public:
+    void sort_by_name();  //sort the students in student_list by names
+    void sort_by_id();    //sort the student in student_list by id numbers
     void fill_from_file(string file_name);    //fill the students_list vector from a text file
     void input_data();  //input loop to add students to student_list from user input
     void output_all(ostream& os);   //output all the students int studets_list to ostream
@@ -120,6 +123,25 @@ void School::print(std::ostream& os)  //print out all the student formatted for 
        os<<"----\n";
    }
 }
+
+//------------------------------------------------------------------------------------------------------------------------
+
+void School::sort_by_name(){   //sort the students in student_list by names
+    if(students_list.size()<2) return; //don't do sorting if students_list's size is smaller than 2
+    sort(students_list.begin(),students_list.end(),
+    [](const Student& a, const Student& b)
+    { return a.name<b.name; });
+}
+
+//------------------------------------------------------------------------------------------------------------------------
+
+void School::sort_by_id(){   //sort the student in student_list by id numbers
+    if(students_list.size()<2) return; //don't do sorting if students_list's size is smaller than 2
+    sort(students_list.begin(),students_list.end(),
+    [](const Student& a, const Student& b)
+    { return a.id_number<b.id_number; });
+}
+
 
 
 
