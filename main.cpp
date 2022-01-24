@@ -3,13 +3,9 @@
 #include <fstream>
 #include "student.h"
 #include "school.h"
+#include "main_menu.h"
+#include "helper_functions.h"
 using namespace std;
-
-
-
-
-
-
 
 
 
@@ -17,12 +13,10 @@ using namespace std;
 
 int main(){
   try{
-  School my_school;
-  my_school.fill_from_file("file.txt");
-  my_school.sort_by_name();
-  my_school.print(cout);
- 
-
+   
+  Menu menu;
+  menu.main_menu();
+  
 
 
   }

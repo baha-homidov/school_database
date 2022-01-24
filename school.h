@@ -22,7 +22,7 @@ public:
     void input_data();  //input loop to add students to student_list from user input
     void output_all(ostream& os);   //output all the students int studets_list to ostream
     void print(std::ostream& os);    //print out all the student formatted for readabilty
-
+    void save_as_file(string filename);   //save data to a text file
 };
 
 
@@ -32,7 +32,6 @@ void School::input_data(){   //input loop to add students to student_list from u
     int student_num;
     cout<<"Number of students you want to input: ";
     cin>>student_num;
-
     for(int i=0; i<student_num; ++i)  //input loop
     {
     
@@ -50,9 +49,12 @@ void School::input_data(){   //input loop to add students to student_list from u
     cout<<"Student "<<i+1<<'\n';
     cout<<"Input id_number: ";
     cin>>id_number;
+    cin.ignore();
     cout<<"Input full name: ";
+    
     getline(cin,name);
     cout<<"Input major: ";
+    
     getline(cin,major);
     cout<<"Input birthday: \nMonth: ";
     cin>>birth_month; 
@@ -82,7 +84,7 @@ void School::input_data(){   //input loop to add students to student_list from u
 void School::output_all(ostream& os){    //output all the students int studets_list to ostream
 for(int i=0; i<students_list.size(); ++i){
     os<<students_list[i];
-    os<<"----\n";
+    if(i<(students_list.size()-1))os<<"----\n";
 }
 }
 
@@ -143,5 +145,7 @@ void School::sort_by_id(){   //sort the student in student_list by id numbers
 }
 
 
-
-
+void School::save_as_file(string filename){   //save data to a text file
+    ofstream ofs {filename};
+    output_all(ofs);
+}

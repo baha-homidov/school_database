@@ -1,35 +1,35 @@
-Student_ID: 0001
-Full_name: Alex Thompson
+Student_ID: 1
+Full_name:     Alex thomposn
+Birth_date: 8 2 2002
+Major:     Mathematics
+Enrollment_date: 8 31 2025
+----
+Student_ID: 2
+Full_name:     Stud ane
+Birth_date: 9 9 1991
+Major:     Ai
+Enrollment_date: 9 2 2024
+----
+Student_ID: 1
+Full_name:     Stud one
 Birth_date: 8 2 2001
-Major: Artificial science and technologies
-Enrollment_date: 9 5 2005
------
-Student_ID: 3322
-Full_name: Brendon Rogers
-Birth_date: 8 2 2001
-Major: Artificial science and technologies
-Enrollment_date: 9 5 2005
------
-Student_ID: 1112
-Full_name: Jose Mourinho
-Birth_date: 8 2 2001
-Major: Artificial science and technologies
-Enrollment_date: 9 5 2005
------
-Student_ID: 8888
-Full_name: Carlo Ancelotti
-Birth_date: 8 2 2001
-Major: Artificial science and technologies
-Enrollment_date: 9 5 2005
------
-Student_ID: 1212
-Full_name: Roland Atkinson
-Birth_date: 8 2 2001
-Major: Artificial science and technologies
-Enrollment_date: 9 5 2005
------
-Student_ID: 3333
-Full_name: Peter Parker
-Birth_date: 8 2 2001
-Major: Artificial science and technologies
-Enrollment_date: 9 5 2005
+Major:     test major
+Enrollment_date: 9 1 2021
+----
+Student_ID: 999
+Full_name:   new student
+Birth_date: 9 2 2001
+Major:   new major
+Enrollment_date: 9 3 2003
+----
+Student_ID: 1234
+Full_name:  New stud
+Birth_date: 2 3 2001
+Major:  lol
+Enrollment_date: 4 5 2002
+----
+Student_ID: 1234
+Full_name: one more student
+Birth_date: 2 3 2001
+Major: one more ai
+Enrollment_date: 9 10 1999
