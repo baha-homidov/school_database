@@ -1,0 +1,23 @@
+Student_ID: 1
+Full_name: Alex thomposn
+Birth_date: 8 2 2002
+Major:  Mathematics
+Enrollment_date: 8 31 2025
+----
+Student_ID: 2
+Full_name: Stud ane
+Birth_date: 9 9 1991
+Major:  Ai
+Enrollment_date: 9 2 2024
+----
+Student_ID: 1
+Full_name: Stud one
+Birth_date: 8 2 2001
+Major:  test major
+Enrollment_date: 9 1 2021
+----
+Student_ID: 88
+Full_name: new student
+Birth_date: 8 9 2001
+Major: economy
+Enrollment_date: 8 2 2001

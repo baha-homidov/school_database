@@ -8,13 +8,13 @@ using namespace std;
 struct Student
 //class which holds the key info about the student
 {
-// public:
+public:
      Student(int n_id_number,string n_name, string n_major, Date n_birth_date, Date n_enroll_date);   //parameterized contructor
      void symbolic_print(std::ostream& os);
-     int get_id();    //function to return Student's id number
-     string get_name();  //function to return Student's full name 
+     int get_id() const;    //function to return Student's id number
+     string get_name() const;  //function to return Student's full name 
      friend ostream& operator<<(ostream& os, const Student& s);    //overloaded ostream operator
-// private:
+private:
      string name;
      string major;
      int id_number;
@@ -36,8 +36,8 @@ Student::Student(int n_id_number,string n_name, string n_major, Date n_birth_dat
 
 ostream& operator<<(ostream& os, const Student& s){
   os<<"Student_ID: "<<s.id_number<<'\n'
-    <<"Full_name: "<<s.name<<'\n'
-    <<"Birth_date: "<<s.birth_date<<'\n'
+    <<"Full_name:" <<s.name<<'\n'
+    <<"Birth_date: " <<s.birth_date<<'\n'
     <<"Major: "<<s.major<<'\n'
     <<"Enrollment_date: "<<s.enroll_date<<'\n';
     return os;
@@ -57,13 +57,13 @@ void Student::symbolic_print(std::ostream& os){
 
 //------------------------------------------------------------------------------------------------------
 
-int Student::get_id(){  //function to return Student's id number
+int Student::get_id() const{  //function to return Student's id number
   return id_number;
 }
 
 //------------------------------------------------------------------------------------------------------
 
-string Student::get_name(){  //function to return Student's full name 
+string Student::get_name() const{  //function to return Student's full name 
   return name;
 }
 //************************************************************************************************

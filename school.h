@@ -4,12 +4,35 @@
 #include <sstream>
 #include <vector>
 #include <stdexcept>
+#include <algorithm>
 #include "student.h"
 #include "date.h" 
 
 
 
 using namespace std;
+
+class Id_search{    //function class to check if School has a student with similar id number
+   int id_number;
+public:
+   Id_search(int id) : id_number(id) {}
+   bool operator()(const Student& s) const { return id_number==s.get_id(); }
+};
+
+//*********************************************************************************************************
+
+
+class Name_search{    //function class to check if School has a student with similar name
+   string name;
+public:
+   Name_search(string nname) : name(nname) {}
+   bool operator()(const Student& s) const { return name==s.get_name(); }
+};
+
+//*********************************************************************************************************
+
+
+
 
 
 class School{
@@ -23,6 +46,8 @@ public:
     void output_all(ostream& os);   //output all the students int studets_list to ostream
     void print(std::ostream& os);    //print out all the student formatted for readabilty
     void save_as_file(string filename);   //save data to a text file
+    void search_by_id(int id_num);       //search for student with given id_num in students_list
+    void search_by_name(string name);
 };
 
 
@@ -48,7 +73,14 @@ void School::input_data(){   //input loop to add students to student_list from u
     int enroll_year;
     cout<<"Student "<<i+1<<'\n';
     cout<<"Input id_number: ";
-    cin>>id_number;
+    while(true){    
+        //keep asking for valid input       
+        //check if id nuber already exists in the list
+        cin>>id_number;
+        auto id_search=find_if(students_list.begin(),students_list.end(),Id_search(id_number));  
+        if(id_search==students_list.end()) break;   //if it doesn't exits, proceed
+        else cout<<"Id number "<<id_number<<" already exist.\nInput id_number: ";
+    }
     cin.ignore();
     cout<<"Input full name: ";
     
@@ -57,24 +89,41 @@ void School::input_data(){   //input loop to add students to student_list from u
     
     getline(cin,major);
     cout<<"Input birthday: \nMonth: ";
-    cin>>birth_month; 
-    if(birth_month<1||birth_month>12) throw invalid_argument("Invalid month index. Index should in be in range 1-12\n");
+    while(true){    //keep asking for valid input
+        cin>>birth_month;
+        if(birth_month<13&&birth_month>0) break;
+        else cout<<"Month should be in 1-12 range.\nMonth: ";
+    }
     cout<<"Day: ";
-    cin>>birth_day; if(birth_day<1||birth_day>31) throw invalid_argument("Invalid day index. Index should in be in range 1-31\n");
+    while(true){
+        cin>>birth_day;
+        if(birth_day<32&&birth_day>0) break;
+        else cout<<"Day should be in 1-31 range.\nDay:";
+    }
     cout<<"Year: ";
-    cin>>birth_year;
-    if(birth_year<1900||birth_year>2025) throw invalid_argument("Invalid day index. Index should in be in range 1900-2025\n");
-    
+    while(true){
+        cin>>birth_year;
+        if(birth_year<2022&&birth_year>1900) break;
+        else cout<<"Year should be in 1900-2025 range.\nYear: ";
+    }
     cout<<"Input enrollment date: \n Month: ";
-    cin>>enroll_month; 
-    if(enroll_month<1||enroll_month>12) throw invalid_argument("Invalid month index. Index should in be in range 1-12\n");
+    while(true){    //keep asking for valid input
+        cin>>enroll_month;
+        if(enroll_month<13&&enroll_month>0) break;
+        else cout<<"Month should be in 1-12 range.\nMonth: ";
+    }
     cout<<"Day: ";
-    cin>>enroll_day;
-    if(enroll_day<1||enroll_day>31) throw invalid_argument("Invalid day index. Index should in be in range 1-31\n");
+    while(true){
+        cin>>enroll_day;
+        if(enroll_day<32&&enroll_day>0) break;
+        else cout<<"Day should be in 1-31 range.\nDay:";
+    }
     cout<<"Year: ";
-    cin>>enroll_year;
-    if(enroll_year<1900||enroll_year>2025) throw invalid_argument("Invalid day index. Index should in be in range 1900-2025\n");
-    
+    while(true){
+        cin>>enroll_year;
+        if(enroll_year<2023&&enroll_year>1899) break;
+        else cout<<"Year should be in 1900-2025 range.\nYear: ";
+    }
     students_list.push_back(Student(id_number,name,major,{Month(birth_month),birth_day,birth_year},{Month(enroll_month),enroll_day,enroll_year}));
     }
 }
@@ -102,10 +151,10 @@ void School::fill_from_file(string file_name)   //fill the students_list vector 
       Date birth_date;
       Date enroll_date;
       ifs>>id_prefix>>id_number;
-      ifs>>name_prefix;
+      ifs>>name_prefix>>std::ws;
       getline(ifs,full_name);     //getline because name can consist of multiple names
       ifs>>birth_prefix>>birth_date;
-      ifs>>major_prefix;
+      ifs>>major_prefix>>std::ws;
       getline(ifs,major);     //getline because a major name can consist of multiple names
       ifs>>enroll_prefix>>enroll_date;
       ifs>>end_data;
@@ -128,24 +177,49 @@ void School::print(std::ostream& os)  //print out all the student formatted for 
 
 //------------------------------------------------------------------------------------------------------------------------
 
-void School::sort_by_name(){   //sort the students in student_list by names
-    if(students_list.size()<2) return; //don't do sorting if students_list's size is smaller than 2
-    sort(students_list.begin(),students_list.end(),
-    [](const Student& a, const Student& b)
-    { return a.name<b.name; });
-}
+// void School::sort_by_name(){   //sort the students in student_list by names
+//     if(students_list.size()<2) return; //don't do sorting if students_list's size is smaller than 2
+//     sort(students_list.begin(),students_list.end(),
+//     [](const Student& a, const Student& b)
+//     { return a.name<b.name; });
+// }
 
 //------------------------------------------------------------------------------------------------------------------------
 
-void School::sort_by_id(){   //sort the student in student_list by id numbers
-    if(students_list.size()<2) return; //don't do sorting if students_list's size is smaller than 2
-    sort(students_list.begin(),students_list.end(),
-    [](const Student& a, const Student& b)
-    { return a.id_number<b.id_number; });
-}
+// void School::sort_by_id(){   //sort the student in student_list by id numbers
+//     if(students_list.size()<2) return; //don't do sorting if students_list's size is smaller than 2
+//     sort(students_list.begin(),students_list.end(),
+//     [](const Student& a, const Student& b)
+//     { return a.id_number<b.id_number; });
+// }
 
 
 void School::save_as_file(string filename){   //save data to a text file
     ofstream ofs {filename};
     output_all(ofs);
+}
+
+//------------------------------------------------------------------------------------------------------------
+
+void School::search_by_id(int id)  //search for student with given id_num in students_list
+{       
+    auto s=  find_if(students_list.begin(),students_list.end(),Id_search(id));
+    if(s!=students_list.end()) {
+        Student stud=*s;
+        cout<<"\nResult:\n";
+        stud.symbolic_print(cout);
+    }
+    else cout<<"No student found with id number: "<<id<<".\n";
+}
+
+//------------------------------------------------------------------------------------------------------------
+
+void School::search_by_name(string name){
+    auto s=  find_if(students_list.begin(),students_list.end(),Name_search(name));
+    if(s!=students_list.end()) {
+        Student stud=*s;
+        cout<<"\nResult:\n";
+        stud.symbolic_print(cout);
+    }
+    else cout<<"No student found with name: "<<name<<".\n";
 }

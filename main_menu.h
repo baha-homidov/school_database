@@ -21,7 +21,7 @@ void Menu::main_menu(){
     
     while(true){
     cout<<"*****School database******\n\n\n"<<"--Main Menu--\n\n"
-        <<"[1] Open an existing file\n"
+        <<"[1]Open an existing file\n"
         <<"[2]Create a new file.\n"
         <<"[3]Quit\n\nInput: ";
     cin>>input;
@@ -41,12 +41,6 @@ void Menu::main_menu(){
         cout<<"Invalid input.\n";
         break;
     }
-
-
-
-    // if(input==1) import_data();
-    // else if(input==2) new_data();
-    // else cout<<"Invalid input.\n";
     }
 }
 
@@ -81,9 +75,11 @@ void Menu::work_on_file(School school,string filename){
     int input;
     cout<<"*****School database******\n\n\n"<<"--Working on file: "<<filename<< "--\n\n"
         <<"[1]Show all the students\n"
-        <<"[2]Add students\n"
-        <<"[3]Go back to main menu\n"
-        <<"[4]Quit\n"
+        <<"[2]Search for student by id number\n"
+        <<"[3]Search for student by full name\n"
+        <<"[4]Add students\n"
+        <<"[5]Go back to main menu\n"
+        <<"[6]Quit\n"
         <<"\nInput: ";
     cin>>input;
     switch (input)
@@ -93,14 +89,33 @@ void Menu::work_on_file(School school,string filename){
         school.print(cout);
         break;
     case 2:
+    {
+        system("clear");
+        int id_num;
+        cout<<"Input id number: ";
+        cin>>id_num;
+        school.search_by_id(id_num);
+        break;
+    }
+    case 3: 
+      {
+        system("clear");
+        string name;
+        cout<<"Input full name: ";
+        cin.ignore();
+        getline(cin,name);
+        school.search_by_name(name);
+        break;
+    }  
+    case 4:
         system("clear");
         school.input_data();            //add students and rewrite current file
         school.save_as_file(filename);
         break;
-    case 3:
+    case 5:        //go back to main menu
         return;
         break;
-    case 4:
+    case 6:       
         exit(0);
         break;
     default:
