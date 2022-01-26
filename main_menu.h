@@ -25,6 +25,13 @@ void Menu::main_menu(){
         <<"[2]Create a new file.\n"
         <<"[3]Quit\n\nInput: ";
     cin>>input;
+    while(cin.fail())    //check for a non-digit input
+        {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+        cout << "Bad entry.  Enter a NUMBER: ";
+        cin >> input;
+        }
 
     switch (input)
     {
@@ -82,6 +89,13 @@ void Menu::work_on_file(School school,string filename){
         <<"[6]Quit\n"
         <<"\nInput: ";
     cin>>input;
+    while(cin.fail())    //check for a non-digit input
+        {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+        cout << "Bad entry.  Enter a NUMBER: ";
+        cin >> input;
+        }
     switch (input)
     {
     case 1:

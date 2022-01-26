@@ -7,6 +7,7 @@
 #include <algorithm>
 #include "student.h"
 #include "date.h" 
+#include "helper_functions.h"
 
 
 
@@ -57,6 +58,13 @@ void School::input_data(){   //input loop to add students to student_list from u
     int student_num;
     cout<<"Number of students you want to input: ";
     cin>>student_num;
+    while(cin.fail())    //check for a non-digit input
+    {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+        cout << "Bad entry.  Enter a NUMBER: ";
+        cin >> student_num;
+    }
     for(int i=0; i<student_num; ++i)  //input loop
     {
     
@@ -77,6 +85,13 @@ void School::input_data(){   //input loop to add students to student_list from u
         //keep asking for valid input       
         //check if id nuber already exists in the list
         cin>>id_number;
+        while(cin.fail())    //check for a non-digit input
+    {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+        cout << "Bad entry.  Enter a NUMBER: ";
+        cin >> id_number;
+    }
         auto id_search=find_if(students_list.begin(),students_list.end(),Id_search(id_number));  
         if(id_search==students_list.end()) break;   //if it doesn't exits, proceed
         else cout<<"Id number "<<id_number<<" already exist.\nInput id_number: ";
@@ -91,36 +106,78 @@ void School::input_data(){   //input loop to add students to student_list from u
     cout<<"Input birthday: \nMonth: ";
     while(true){    //keep asking for valid input
         cin>>birth_month;
+        while(cin.fail())    //check for a non-digit input
+        {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+        cout << "Bad entry.  Enter a NUMBER: ";
+        cin >> birth_month;
+        }
         if(birth_month<13&&birth_month>0) break;
         else cout<<"Month should be in 1-12 range.\nMonth: ";
     }
     cout<<"Day: ";
     while(true){
         cin>>birth_day;
+        while(cin.fail())    //check for a non-digit input
+        {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+        cout << "Bad entry.  Enter a NUMBER: ";
+        cin >> birth_day;
+        }
         if(birth_day<32&&birth_day>0) break;
         else cout<<"Day should be in 1-31 range.\nDay:";
     }
     cout<<"Year: ";
     while(true){
         cin>>birth_year;
+         while(cin.fail())    //check for a non-digit input
+        {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+        cout << "Bad entry.  Enter a NUMBER: ";
+        cin >> birth_year;
+        }
         if(birth_year<2022&&birth_year>1900) break;
         else cout<<"Year should be in 1900-2025 range.\nYear: ";
     }
     cout<<"Input enrollment date: \n Month: ";
     while(true){    //keep asking for valid input
         cin>>enroll_month;
+        while(cin.fail())    //check for a non-digit input
+        {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+        cout << "Bad entry.  Enter a NUMBER: ";
+        cin >> enroll_month;
+        }
         if(enroll_month<13&&enroll_month>0) break;
         else cout<<"Month should be in 1-12 range.\nMonth: ";
     }
     cout<<"Day: ";
     while(true){
         cin>>enroll_day;
+        while(cin.fail())    //check for a non-digit input
+        {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+        cout << "Bad entry.  Enter a NUMBER: ";
+        cin >> enroll_day;
+        }
         if(enroll_day<32&&enroll_day>0) break;
         else cout<<"Day should be in 1-31 range.\nDay:";
     }
     cout<<"Year: ";
     while(true){
         cin>>enroll_year;
+        while(cin.fail())    //check for a non-digit input
+        {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+        cout << "Bad entry.  Enter a NUMBER: ";
+        cin >> enroll_year;
+        }
         if(enroll_year<2023&&enroll_year>1899) break;
         else cout<<"Year should be in 1900-2025 range.\nYear: ";
     }
