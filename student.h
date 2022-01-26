@@ -36,7 +36,7 @@ Student::Student(int n_id_number,string n_name, string n_major, Date n_birth_dat
 
 ostream& operator<<(ostream& os, const Student& s){
   os<<"Student_ID: "<<s.id_number<<'\n'
-    <<"Full_name:" <<s.name<<'\n'
+    <<"Full_name: " <<s.name<<'\n'
     <<"Birth_date: " <<s.birth_date<<'\n'
     <<"Major: "<<s.major<<'\n'
     <<"Enrollment_date: "<<s.enroll_date<<'\n';

@@ -31,6 +31,7 @@ void Menu::main_menu(){
         cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
         cout << "Bad entry.  Enter a NUMBER: ";
         cin >> input;
+        
         }
 
     switch (input)
@@ -82,11 +83,15 @@ void Menu::work_on_file(School school,string filename){
     int input;
     cout<<"*****School database******\n\n\n"<<"--Working on file: "<<filename<< "--\n\n"
         <<"[1]Show all the students\n"
-        <<"[2]Search for student by id number\n"
-        <<"[3]Search for student by full name\n"
-        <<"[4]Add students\n"
-        <<"[5]Go back to main menu\n"
-        <<"[6]Quit\n"
+        <<"[2]Sort students by name\n"
+        <<"[3]Sort student by ID number\n"
+        <<"[4]Search for student by id number\n"
+        <<"[5]Search for student by full name\n"
+        <<"[6]Add students\n"
+        <<"[7]Delete a student\n"
+        <<"[8]Clear the database\n"
+        <<"[9]Go back to main menu\n"
+        <<"[10]Quit\n"
         <<"\nInput: ";
     cin>>input;
     while(cin.fail())    //check for a non-digit input
@@ -103,33 +108,78 @@ void Menu::work_on_file(School school,string filename){
         school.print(cout);
         break;
     case 2:
+        school.sort_by_name();             //sort the students by name
+        school.save_as_file(filename);     //and rewrite the save file
+        break;
+    case 3:
+        school.sort_by_id();              //sort the students by ID number
+        school.save_as_file(filename);   //and rewrite the save file
+        break;
+    case 4:
     {
-        system("clear");
+        system("clear");      //find a student by ID number
         int id_num;
-        cout<<"Input id number: ";
+        cout<<"Input ID number: ";
         cin>>id_num;
         school.search_by_id(id_num);
         break;
     }
-    case 3: 
+    case 5: 
       {
         system("clear");
-        string name;
+        string name;       //find a student by full name
         cout<<"Input full name: ";
         cin.ignore();
         getline(cin,name);
         school.search_by_name(name);
         break;
     }  
-    case 4:
+    case 6:
         system("clear");
         school.input_data();            //add students and rewrite current file
         school.save_as_file(filename);
         break;
-    case 5:        //go back to main menu
+    case 7:
+        {
+        int id_num;              //add a student by ID number
+        cout<<"Add student ID number for deletion: ";
+        cin>>id_num;
+        while(cin.fail())    //check for a non-digit input
+        {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+        cout << "Bad entry.  Enter a NUMBER: ";
+        cin >> id_num;
+        }
+        school.delete_stud(id_num);       //delete the student
+        school.save_as_file(filename);    //rewrite the save file
+        break;
+        }
+    case 8:
+        { 
+        int input;
+        cout<<"All data will be lost. Are you sure you want to clear the database?\n[1]YES     [2]NO\n";
+        cin>>input;
+        while(cin.fail()||(input!=1&&input!=2))    //check for a non-digit input
+        {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+        cout << "Bad entry.  Enter a [1] or [2]: ";
+        cin >> input;
+        }
+        if(input==1){
+            school.clear();                   //clear all the data in school
+            school.save_as_file(filename);    //rewrite the save file
+            cout<<"All the data was erased.\n";
+            break;
+        }
+        else {cout<<"Action was canceled\n"; break;}
+
+        }
+    case 9:        //go back to main menu
         return;
         break;
-    case 6:       
+    case 10:       
         exit(0);
         break;
     default:

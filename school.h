@@ -13,6 +13,18 @@
 
 using namespace std;
 
+bool comp_name(Student a, Student b){     //helper function to compare to name of two Students
+    return a.get_name()<b.get_name();        //used for School::sort_by_name()
+}
+
+//*********************************************************************************************************
+
+bool comp_id(Student a, Student b){     //helper function to compare to name of two Students
+    return a.get_id()<b.get_id();        //used for School::sort_by_name()
+}
+
+//*********************************************************************************************************
+
 class Id_search{    //function class to check if School has a student with similar id number
    int id_number;
 public:
@@ -48,7 +60,9 @@ public:
     void print(std::ostream& os);    //print out all the student formatted for readabilty
     void save_as_file(string filename);   //save data to a text file
     void search_by_id(int id_num);       //search for student with given id_num in students_list
-    void search_by_name(string name);
+    void search_by_name(string name);    //search for student with given id_num in students_list
+    void delete_stud(int id_num);        //delete a  student by ID number
+    void clear();                   //delete all the data in students_list
 };
 
 
@@ -70,7 +84,7 @@ void School::input_data(){   //input loop to add students to student_list from u
     
     string name; 
     string major;
-    int id_number;
+    int id_number=students_list.size()+1;    //initalize ID number according to student_list
     //birth date variables
     int birth_month;
     int birth_day;
@@ -80,22 +94,7 @@ void School::input_data(){   //input loop to add students to student_list from u
     int enroll_day;
     int enroll_year;
     cout<<"Student "<<i+1<<'\n';
-    cout<<"Input id_number: ";
-    while(true){    
-        //keep asking for valid input       
-        //check if id nuber already exists in the list
-        cin>>id_number;
-        while(cin.fail())    //check for a non-digit input
-    {
-        cin.clear();
-        cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-        cout << "Bad entry.  Enter a NUMBER: ";
-        cin >> id_number;
-    }
-        auto id_search=find_if(students_list.begin(),students_list.end(),Id_search(id_number));  
-        if(id_search==students_list.end()) break;   //if it doesn't exits, proceed
-        else cout<<"Id number "<<id_number<<" already exist.\nInput id_number: ";
-    }
+    cout<<"New entry. ID number: "<<id_number<<'\n';
     cin.ignore();
     cout<<"Input full name: ";
     
@@ -234,21 +233,17 @@ void School::print(std::ostream& os)  //print out all the student formatted for 
 
 //------------------------------------------------------------------------------------------------------------------------
 
-// void School::sort_by_name(){   //sort the students in student_list by names
-//     if(students_list.size()<2) return; //don't do sorting if students_list's size is smaller than 2
-//     sort(students_list.begin(),students_list.end(),
-//     [](const Student& a, const Student& b)
-//     { return a.name<b.name; });
-// }
+void School::sort_by_name(){   //sort the students in student_list by names
+    if(students_list.size()<2) return; //don't do sorting if students_list's size is smaller than 2
+    sort(students_list.begin(),students_list.end(),comp_name);
+}
 
 //------------------------------------------------------------------------------------------------------------------------
 
-// void School::sort_by_id(){   //sort the student in student_list by id numbers
-//     if(students_list.size()<2) return; //don't do sorting if students_list's size is smaller than 2
-//     sort(students_list.begin(),students_list.end(),
-//     [](const Student& a, const Student& b)
-//     { return a.id_number<b.id_number; });
-// }
+void School::sort_by_id(){   //sort the student in student_list by id numbers
+    if(students_list.size()<2) return; //don't do sorting if students_list's size is smaller than 2
+    sort(students_list.begin(),students_list.end(),comp_id);
+}
 
 
 void School::save_as_file(string filename){   //save data to a text file
@@ -258,15 +253,15 @@ void School::save_as_file(string filename){   //save data to a text file
 
 //------------------------------------------------------------------------------------------------------------
 
-void School::search_by_id(int id)  //search for student with given id_num in students_list
+void School::search_by_id(int id_num)  //search for student with given id_num in students_list
 {       
-    auto s=  find_if(students_list.begin(),students_list.end(),Id_search(id));
+    auto s=  find_if(students_list.begin(),students_list.end(),Id_search(id_num));
     if(s!=students_list.end()) {
         Student stud=*s;
         cout<<"\nResult:\n";
         stud.symbolic_print(cout);
     }
-    else cout<<"No student found with id number: "<<id<<".\n";
+    else cout<<"No student found with id number: "<<id_num<<".\n";
 }
 
 //------------------------------------------------------------------------------------------------------------
@@ -279,4 +274,22 @@ void School::search_by_name(string name){
         stud.symbolic_print(cout);
     }
     else cout<<"No student found with name: "<<name<<".\n";
+}
+
+//-------------------------------------------------------------------------------------------------------------
+
+void School::delete_stud(int id_num)  //delete a  student by ID number
+{       
+    auto s=  find_if(students_list.begin(),students_list.end(),Id_search(id_num));
+    if(s!=students_list.end()) {
+        students_list.erase(s);
+        cout<<"Student ID: "<<id_num<<" deleted.\n";
+    }
+    else cout<<"No student found with id number: "<<id_num<<".\n";
+}
+
+//------------------------------------------------------------------------------------------------------------------------
+
+void School::clear(){
+   students_list.clear();    //students
 }
