@@ -3,16 +3,7 @@
 #include "school.h"
 #include "helper_functions.h"
 
-void checked_int_input(int& num){        //small function which checks and inputs a digit into a given integer
-    cin>>num;
-        while(cin.fail())    //check for a non-digit input
-        {
-        cin.clear();
-        cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-        cout << "Bad entry.  Enter a NUMBER: ";
-        cin >> num;
-        }
-}
+
 
 
 
@@ -38,16 +29,7 @@ void Menu::main_menu(){
         <<"[1]Open an existing file\n"
         <<"[2]Create a new file.\n"
         <<"[3]Quit\n\nInput: ";
-    cin>>input;
-    while(cin.fail())    //check for a non-digit input
-        {
-        cin.clear();
-        cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-        cout << "Bad entry.  Enter a NUMBER: ";
-        cin >> input;
-        
-        }
-
+    checked_int_input(input,1,3);
     switch (input)
     {
     case 1:
@@ -107,14 +89,7 @@ void Menu::work_on_file(School school,string filename){
         <<"[9]Go back to main menu\n"
         <<"[10]Quit\n"
         <<"\nInput: ";
-    cin>>input;
-    while(cin.fail())    //check for a non-digit input
-        {
-        cin.clear();
-        cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-        cout << "Bad entry.  Enter a NUMBER: ";
-        cin >> input;
-        }
+    checked_int_input(input,1,10);
     switch (input)
     {
     case 1:
@@ -149,7 +124,7 @@ void Menu::work_on_file(School school,string filename){
                 <<"[3]Back\n";
             
             while(input!=3){
-            cout<<"Input: "; checked_int_input(input);    //take input from user
+            cout<<"Input: "; checked_int_input(input,1,3);    //take input from user
             if(input==1) {edit_student(s); school.save_as_file(filename); }  //edit student and rewrite the save file
             else if(input==2){school.delete_stud(id_num); school.save_as_file(filename); break; }  //delete student and rewrite the save file
             else cout<<"Invalid input\n";
@@ -180,7 +155,7 @@ void Menu::work_on_file(School school,string filename){
                 <<"[2]Delete student\n"
                 <<"[3]Back\n";
             while(input!=3){
-            cout<<"Input: "; checked_int_input(input);    //take input from user
+            cout<<"Input: "; checked_int_input(input,1,3);    //take input from user
             if(input==1) {edit_student(s); school.save_as_file(filename); }  //edit student and rewrite the save file
             else if(input==2){school.delete_stud(id_num); school.save_as_file(filename); break; }  //delete student and rewrite the save file
             else cout<<"Invalid input\n";
@@ -197,14 +172,7 @@ void Menu::work_on_file(School school,string filename){
         {
         int id_num;              //add a student by ID number
         cout<<"Add student ID number for deletion: ";
-        cin>>id_num;
-        while(cin.fail())    //check for a non-digit input
-        {
-        cin.clear();
-        cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-        cout << "Bad entry.  Enter a NUMBER: ";
-        cin >> id_num;
-        }
+        checked_int_input(id_num);
         school.delete_stud(id_num);       //delete the student
         school.save_as_file(filename);    //rewrite the save file
         break;
@@ -213,14 +181,7 @@ void Menu::work_on_file(School school,string filename){
         { 
         int input;
         cout<<"All data will be lost. Are you sure you want to clear the database?\n[1]YES     [2]NO\n";
-        cin>>input;
-        while(cin.fail()||(input!=1&&input!=2))    //check for a non-digit input
-        {
-        cin.clear();
-        cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-        cout << "Bad entry.  Enter a [1] or [2]: ";
-        cin >> input;
-        }
+        checked_int_input(input,1,2);
         if(input==1){
             school.clear();                   //clear all the data in school
             school.save_as_file(filename);    //rewrite the save file
@@ -256,7 +217,7 @@ void Menu::edit_student(vector<Student>::iterator& s){             //edit Studen
                 <<"[5]Back\n";
 
     while(true){
-    cout<<"Input: "; checked_int_input(input);    //take input from user
+    cout<<"Input: "; checked_int_input(input,1,5);    //take input from user
     switch (input)
     {
     case 1:
@@ -281,26 +242,11 @@ void Menu::edit_student(vector<Student>::iterator& s){             //edit Studen
         {                         //edit birth date 
         int month,day,year;       //TODO: implement a function for editig date
 
-        cout<<"Input new enroll date: \nMonth: ";
-        while(true){    //keep asking for valid input
-        checked_int_input(month);
-        if(month<13&&month>0) break;
-        else cout<<"Month should be in 1-12 range.\nMonth: ";
-        }
-
-        cout<<"Day: ";
-        while(true){   //keep asking for valid input
-        checked_int_input(day);
-        if(day<32&&day>0) break;
-        else cout<<"Day should be in 1-31 range.\nDay:";
-        }
-
-        cout<<"Year: ";
-        while(true){    //keep asking for valid input
-        checked_int_input(year);
-        if(year<2022&&year>1900) break;
-        else cout<<"Year should be in 1900-2025 range.\nYear: ";
-        }
+        cout<<"Input new enroll date: \nMonth: "; checked_int_input(month,1,12);
+        
+        cout<<"Day: "; checked_int_input(day,1,31);
+        
+        cout<<"Year: "; checked_int_input(year,1900,2025);
 
         stud.edit_birth_date(Date{Month(month),day,year});
         }
@@ -309,26 +255,11 @@ void Menu::edit_student(vector<Student>::iterator& s){             //edit Studen
         {                             //edit enrollment date
         int month,day,year;           //TODO: imlement a function for editig date
 
-        cout<<"Input new birthday: \nMonth: ";
-        while(true){    //keep asking for valid input
-        checked_int_input(month);
-        if(month<13&&month>0) break;
-        else cout<<"Month should be in 1-12 range.\nMonth: ";
-        }
+        cout<<"Input new birthday: \nMonth: "; checked_int_input(month,1,12);
 
-        cout<<"Day: ";
-        while(true){   //keep asking for valid input
-        checked_int_input(day);
-        if(day<32&&day>0) break;
-        else cout<<"Day should be in 1-31 range.\nDay:";
-        }
+        cout<<"Day: "; checked_int_input(day,1,31);
 
-        cout<<"Year: ";
-        while(true){    //keep asking for valid input
-        checked_int_input(year);
-        if(year<2022&&year>1900) break;
-        else cout<<"Year should be in 1900-2025 range.\nYear: ";
-        }
+        cout<<"Year: "; checked_int_input(year,1900,2025);
 
         stud.edit_enroll_dat(Date{Month(month),day,year});
         }

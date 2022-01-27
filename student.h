@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include "date.h"
+#include "helper_functions.h"
 using namespace std;
 
 
@@ -53,9 +54,9 @@ ostream& operator<<(ostream& os, const Student& s){
 void Student::symbolic_print(std::ostream& os){
   os<<"Student_ID: "<<id_number<<'\n'
     <<"Full_name: "<<name<<'\n';
-    birth_date.symbolic_print(os);
+    os<<"Birth date: "; birth_date.symbolic_print(os);
     os<<"\nMajor: "<<major<<'\n';
-    enroll_date.symbolic_print(os);
+    os<<"Enrollment date: "; enroll_date.symbolic_print(os);
     os<<'\n';
 }
 
