@@ -14,6 +14,10 @@ public:
      int get_id() const;    //function to return Student's id number
      string get_name() const;  //function to return Student's full name 
      friend ostream& operator<<(ostream& os, const Student& s);    //overloaded ostream operator
+     void edit_name(string new_name){name=new_name;}
+     void edit_major(string new_major) {major=new_major;}
+     void edit_birth_date(Date new_date) {birth_date=new_date;}
+     void edit_enroll_dat(Date new_date) {enroll_date=new_date;}
 private:
      string name;
      string major;

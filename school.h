@@ -52,6 +52,7 @@ class School{
     vector<Student> students_list;
 
 public:
+    vector<Student>::iterator students_list_end(){ return students_list.end(); } 
     void sort_by_name();  //sort the students in student_list by names
     void sort_by_id();    //sort the student in student_list by id numbers
     void fill_from_file(string file_name);    //fill the students_list vector from a text file
@@ -59,8 +60,8 @@ public:
     void output_all(ostream& os);   //output all the students int studets_list to ostream
     void print(std::ostream& os);    //print out all the student formatted for readabilty
     void save_as_file(string filename);   //save data to a text file
-    void search_by_id(int id_num);       //search for student with given id_num in students_list
-    void search_by_name(string name);    //search for student with given id_num in students_list
+    vector<Student>::iterator search_by_id(int id_num);       //search for student with given id_num in students_list
+    vector<Student>::iterator search_by_name(string name);    //search for student with given id_num in students_list
     void delete_stud(int id_num);        //delete a  student by ID number
     void clear();                   //delete all the data in students_list
 };
@@ -253,27 +254,17 @@ void School::save_as_file(string filename){   //save data to a text file
 
 //------------------------------------------------------------------------------------------------------------
 
-void School::search_by_id(int id_num)  //search for student with given id_num in students_list
+vector<Student>::iterator School::search_by_id(int id_num)  //search for student with given id_num in students_list
 {       
     auto s=  find_if(students_list.begin(),students_list.end(),Id_search(id_num));
-    if(s!=students_list.end()) {
-        Student stud=*s;
-        cout<<"\nResult:\n";
-        stud.symbolic_print(cout);
-    }
-    else cout<<"No student found with id number: "<<id_num<<".\n";
+    return s;
 }
 
 //------------------------------------------------------------------------------------------------------------
 
-void School::search_by_name(string name){
+vector<Student>::iterator School::search_by_name(string name){
     auto s=  find_if(students_list.begin(),students_list.end(),Name_search(name));
-    if(s!=students_list.end()) {
-        Student stud=*s;
-        cout<<"\nResult:\n";
-        stud.symbolic_print(cout);
-    }
-    else cout<<"No student found with name: "<<name<<".\n";
+    return s;
 }
 
 //-------------------------------------------------------------------------------------------------------------

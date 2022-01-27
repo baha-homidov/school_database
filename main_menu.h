@@ -3,12 +3,26 @@
 #include "school.h"
 #include "helper_functions.h"
 
+void checked_int_input(int& num){        //small function which checks and inputs a digit into a given integer
+    cin>>num;
+        while(cin.fail())    //check for a non-digit input
+        {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+        cout << "Bad entry.  Enter a NUMBER: ";
+        cin >> num;
+        }
+}
+
+
+
 
 struct Menu{
     void main_menu();
     void import_data();
     void new_data();
     void work_on_file(School school, string filename);
+    void edit_student(vector<Student>::iterator& s);
 
 };
 
@@ -120,20 +134,60 @@ void Menu::work_on_file(School school,string filename){
         system("clear");      //find a student by ID number
         int id_num;
         cout<<"Input ID number: ";
-        cin>>id_num;
-        school.search_by_id(id_num);
+        checked_int_input(id_num);
+        auto s=school.search_by_id(id_num);
+        if(s==school.students_list_end()) cout<<"Student ID number: "<<id_num<<" not found.\n";   //check if search was successfull
+        else {
+            int input;
+            system("clear");
+            Student stud=*s;
+            cout<<"Result: \n";
+            stud.symbolic_print(cout);
+            cout<<"\n------------------\nOptions:\n"
+                <<"[1]Edit data\n"
+                <<"[2]Delete student\n"
+                <<"[3]Back\n";
+            
+            while(input!=3){
+            cout<<"Input: "; checked_int_input(input);    //take input from user
+            if(input==1) {edit_student(s); school.save_as_file(filename); }  //edit student and rewrite the save file
+            else if(input==2){school.delete_stud(id_num); school.save_as_file(filename); break; }  //delete student and rewrite the save file
+            else cout<<"Invalid input\n";
+            }
+            
+        }
         break;
     }
     case 5: 
       {
-        system("clear");
-        string name;       //find a student by full name
+        system("clear");      //find a student by ID number
+        string name;
+        int id_num;
         cout<<"Input full name: ";
         cin.ignore();
         getline(cin,name);
-        school.search_by_name(name);
+        auto s=school.search_by_name(name);
+        if(s==school.students_list_end()) cout<<"Student name: "<<name<<" not found.\n";   //check if search was successfull
+        else {
+            int input;
+            system("clear");
+            Student stud=*s;
+            id_num=stud.get_id();
+            cout<<"Result: \n";
+            stud.symbolic_print(cout);
+            cout<<"\n------------------\nOptions:\n"
+                <<"[1]Edit data\n"
+                <<"[2]Delete student\n"
+                <<"[3]Back\n";
+            while(input!=3){
+            cout<<"Input: "; checked_int_input(input);    //take input from user
+            if(input==1) {edit_student(s); school.save_as_file(filename); }  //edit student and rewrite the save file
+            else if(input==2){school.delete_stud(id_num); school.save_as_file(filename); break; }  //delete student and rewrite the save file
+            else cout<<"Invalid input\n";
+            }
+        }
         break;
-    }  
+    }
     case 6:
         system("clear");
         school.input_data();            //add students and rewrite current file
@@ -186,5 +240,105 @@ void Menu::work_on_file(School school,string filename){
         cout<<"Invalid input.\n";
         break;
     }
+    }
+}
+
+//------------------------------------------------------------------
+
+void Menu::edit_student(vector<Student>::iterator& s){             //edit Student data 
+    int input;
+            Student stud=*s;
+            cout<<"\n------------------\nOptions:\n"
+                <<"[1]Edit full name\n"
+                <<"[2]Edit major\n"
+                <<"[3]Edit birth date\n"
+                <<"[4]Edit enrollment date\n"
+                <<"[5]Back\n";
+
+    while(true){
+    cout<<"Input: "; checked_int_input(input);    //take input from user
+    switch (input)
+    {
+    case 1:
+        {
+        string name;                 //edit full name
+        cout<<"Input new name: ";
+        cin.ignore();
+        getline(cin,name);
+        stud.edit_name(name);
+        }
+        break;
+    case 2:
+        {                          //edit major name
+        string major;
+        cout<<"Input new major: ";
+        cin.ignore();
+        getline(cin,major);
+        stud.edit_major(major);
+        }
+  
+    case 3: 
+        {                         //edit birth date 
+        int month,day,year;       //TODO: implement a function for editig date
+
+        cout<<"Input new enroll date: \nMonth: ";
+        while(true){    //keep asking for valid input
+        checked_int_input(month);
+        if(month<13&&month>0) break;
+        else cout<<"Month should be in 1-12 range.\nMonth: ";
+        }
+
+        cout<<"Day: ";
+        while(true){   //keep asking for valid input
+        checked_int_input(day);
+        if(day<32&&day>0) break;
+        else cout<<"Day should be in 1-31 range.\nDay:";
+        }
+
+        cout<<"Year: ";
+        while(true){    //keep asking for valid input
+        checked_int_input(year);
+        if(year<2022&&year>1900) break;
+        else cout<<"Year should be in 1900-2025 range.\nYear: ";
+        }
+
+        stud.edit_birth_date(Date{Month(month),day,year});
+        }
+        break;
+    case 4:
+        {                             //edit enrollment date
+        int month,day,year;           //TODO: imlement a function for editig date
+
+        cout<<"Input new birthday: \nMonth: ";
+        while(true){    //keep asking for valid input
+        checked_int_input(month);
+        if(month<13&&month>0) break;
+        else cout<<"Month should be in 1-12 range.\nMonth: ";
+        }
+
+        cout<<"Day: ";
+        while(true){   //keep asking for valid input
+        checked_int_input(day);
+        if(day<32&&day>0) break;
+        else cout<<"Day should be in 1-31 range.\nDay:";
+        }
+
+        cout<<"Year: ";
+        while(true){    //keep asking for valid input
+        checked_int_input(year);
+        if(year<2022&&year>1900) break;
+        else cout<<"Year should be in 1900-2025 range.\nYear: ";
+        }
+
+        stud.edit_enroll_dat(Date{Month(month),day,year});
+        }
+        break;
+    case 5:                       //save changes and exit from the function 
+        *s=stud;
+        return;
+        default:
+        cout<<"Invalid input\n";
+        break;
+        }
     }
 }
