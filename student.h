@@ -18,7 +18,7 @@ public:
      void edit_name(string new_name){name=new_name;}
      void edit_major(string new_major) {major=new_major;}
      void edit_birth_date(Date new_date) {birth_date=new_date;}
-     void edit_enroll_dat(Date new_date) {enroll_date=new_date;}
+     void edit_enroll_date(Date new_date) {enroll_date=new_date;}
 private:
      string name;
      string major;
