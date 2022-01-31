@@ -22,6 +22,7 @@ public:
      void edit_major(string new_major) {major=new_major;}
      void edit_birth_date(Date new_date) {birth_date=new_date;}
      void edit_enroll_date(Date new_date) {enroll_date=new_date;}
+     double av_mark(){return marks.av_mark();}
      Marks* marks_ptr(){return &marks;}      //return a pointer to a private data-member 'marks' (possibly sloppy code writing)
 private:
      string name;

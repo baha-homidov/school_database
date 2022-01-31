@@ -19,7 +19,7 @@ void Marks::print(ostream& os){              //print all the marks with explanat
 
 //------------------------------------------------------------------------------------------------------
 
-double Marks::av_marks(){         //calculate the average score
+double Marks::av_mark(){         //calculate the average score
    return double (computer_science+calculus+linear_algebra+machine_learning)/4;
 }
 

@@ -23,7 +23,7 @@ public:
    void set_ml(double ml){machine_learning=ml;}
    //- - - - - - - - - - - - - - - - - - - - - - -
    void print(ostream& os);  //print all marks
-   double av_marks();  // average marks
+   double av_mark();  // average marks
    Marks(double cs,double calc,double lin_algebra,double ml);   //parameterized constructor
    friend ostream& operator<<(ostream& os, const Marks& m);   
    friend istream& operator>>(std::istream& is, Marks& m);  

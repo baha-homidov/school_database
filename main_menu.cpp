@@ -67,17 +67,18 @@ void Menu::work_on_file(School school,string filename){       //make operations 
     int input;
     cout<<"*****School database******\n\n\n"<<"--Working on file: "<<filename<< "--\n\n"
         <<"[1]Show all the students\n"
-        <<"[2]Sort students by name\n"
-        <<"[3]Sort student by ID number\n"
-        <<"[4]Search for student by id number\n"
-        <<"[5]Search for student by full name\n"
-        <<"[6]Add students\n"
-        <<"[7]Delete a student\n"
-        <<"[8]Clear the database\n"
-        <<"[9]Go back to main menu\n"
-        <<"[10]Quit\n"
+        <<"[2]Show the average marks\n"
+        <<"[3]Sort students by name\n"
+        <<"[4]Sort student by ID number\n"
+        <<"[5]Search for student by id number\n"
+        <<"[6]Search for student by full name\n"
+        <<"[7]Add students\n"
+        <<"[8]Delete a student\n"
+        <<"[9]Clear the database\n"
+        <<"[10]Go back to main menu\n"
+        <<"[11]Quit\n"
         <<"\nInput: ";
-    checked_int_input(input,1,10);
+    checked_int_input(input,1,11);
     switch (input)
     {
     case 1:
@@ -85,34 +86,38 @@ void Menu::work_on_file(School school,string filename){       //make operations 
         school.print(cout);
         break;
     case 2:
+        cout<<"Average score all the students in file: "   //show the average score
+        <<filename<<": "<<school.av_score()<<'\n';
+        break;
+    case 3:
         school.sort_by_name();             //sort the students by name
         school.save_as_file(filename);     //and rewrite the save file
         break;
-    case 3:
+    case 4:
         school.sort_by_id();              //sort the students by ID number
         school.save_as_file(filename);   //and rewrite the save file
         break;
-    case 4:
+    case 5:
         id_search(school,filename);    //find a student by ID number
         break;  
-    case 5: 
+    case 6: 
         name_search(school,filename);  //find a student by full name
         break;
-    case 6:
+    case 7:
         system("clear");
         school.input_data();            //add students and rewrite current file
         school.save_as_file(filename);
         break;
-    case 7:
+    case 8:
         delete_student(school,filename);  //delete a student
         break;
-    case 8:
+    case 9:
         clear_all_data(school,filename);  //clear all the data in current file
         break;
-    case 9:        //go back to main menu
+    case 10:        //go back to main menu
         return;
         break;
-    case 10:       
+    case 11:       
         exit(0);
         break;
     default:

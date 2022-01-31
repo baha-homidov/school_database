@@ -58,6 +58,7 @@ public:
     void fill_from_file(string file_name);    //fill the students_list vector from a text file
     void input_data();  //input loop to add students to student_list from user input
     void output_all(ostream& os);   //output all the students int studets_list to ostream
+    double av_score();   //average score of all the students
     void print(std::ostream& os);    //print out all the student formatted for readabilty
     void save_as_file(string filename);   //save data to a text file
     vector<Student>::iterator search_by_id(int id_num);       //search for student with given id_num in students_list

@@ -171,3 +171,14 @@ void School::delete_stud(int id_num)  //delete a  student by ID number
 void School::clear(){
    students_list.clear();    //students
 }
+
+//------------------------------------------------------------------------------------------------------------------------
+
+double School::av_score(){
+    if(students_list.size()==0) return 0;
+    double sum=0;
+    for(int i=0;i<students_list.size(); ++i){
+       sum+=students_list[i].av_mark();
+    }
+    return sum/students_list.size();
+}

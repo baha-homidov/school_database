@@ -39,6 +39,7 @@ void Student::symbolic_print(std::ostream& os){
     os<<"Enrollment date: "; enroll_date.symbolic_print(os);
     os<<"\nMarks:\n"; marks.print(os);
     os<<'\n';
+    os<<"Average score: "<<av_mark();
 }
 
 //------------------------------------------------------------------------------------------------------
