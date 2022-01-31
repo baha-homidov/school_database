@@ -9,5 +9,10 @@ void checked_int_input(int& num);
 
 void checked_int_input(int& num, int min, int max);
 
+void checked_double_input(double& num);
+
+void checked_double_input(double& num, double min, double max);
+
+
 
 #endif

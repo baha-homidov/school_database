@@ -18,6 +18,7 @@ struct Menu{
     void edit_student(vector<Student>::iterator& s);
     void edit_birth(Student& stud);
     void edit_enroll(Student& stud);
+    void edit_marks(Student& stud);
     void name_search(School& school, string filename);
     void id_search(School& school, string filename);
     void delete_student(School& school, string filename);

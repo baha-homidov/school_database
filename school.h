@@ -10,6 +10,8 @@
 #include "student.h"
 #include "date.h" 
 #include "helper_functions.h"
+#include "marks.h"
+
 
 
 

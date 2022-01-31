@@ -134,14 +134,16 @@ void Menu::edit_student(vector<Student>::iterator& s){             //edit Studen
             <<"[2]Edit major\n"
             <<"[3]Edit birth date\n"
             <<"[4]Edit enrollment date\n"
-            <<"[5]Back\n";
+            <<"[5]Edit marks\n"
+            <<"[6]Back\n";
 
-    cout<<"Input: "; checked_int_input(input,1,5);    //take input from user
+    cout<<"Input: "; checked_int_input(input,1,6);    //take input from user
     switch (input)
     {
     case 1:
         {
-        string name;                 //edit full name
+        //edit full name
+        string name;                
         cout<<"Input new name: ";
         cin.ignore();
         getline(cin,name);
@@ -149,7 +151,8 @@ void Menu::edit_student(vector<Student>::iterator& s){             //edit Studen
         }
         break;
     case 2:
-        {                          //edit major name
+        {    
+         //edit major name                     
         string major;
         cout<<"Input new major: ";
         cin.ignore();
@@ -162,9 +165,14 @@ void Menu::edit_student(vector<Student>::iterator& s){             //edit Studen
         edit_birth(stud);
         break;
     case 4:
-        edit_enroll(stud);      //edit enroll date
+        //edit enroll date
+        edit_enroll(stud);      
         break;
-    case 5:                       //save changes and exit from the function 
+    case 5: 
+        //edit marks
+        edit_marks(stud);
+        break;
+    case 6:                       //save changes and exit from the function 
         *s=stud;
         return;
         default:
@@ -328,4 +336,67 @@ int input;
 
 }
 
+//------------------------------------------------------------------
+
+void Menu::edit_marks(Student& stud){
+   while(true){
+   int input;
+   cout<<"Current marks:\n";
+   stud.marks_ptr()->print(cout);
+   cout<<"Choose a subject to edit marks:\n"
+       <<"[1]Computer science\n"
+       <<"[2]Calculus\n"
+       <<"[3]Linear algebra\n"
+       <<"[4]Machine learning\n"
+       <<"[5]Back\n";
+    cout<<"Input: ";
+    checked_int_input(input,1,5);
+    switch (input)
+    {
+    case 1:
+        {
+        double cs;
+        cout<<"New Computer Science mark: ";
+        checked_double_input(cs,0.0,100.0);
+        stud.marks_ptr()->set_cs(cs);
+        }
+        break;
+    case 2:
+        {
+        double calc;
+        cout<<"New Calculus mark: ";
+        checked_double_input(calc,0.0,100.0);
+        stud.marks_ptr()->set_calculus(calc);
+        }
+        break;
+    case 3:
+        {
+        double lin_alg;
+        cout<<"New Linear Algebra mark: ";
+        checked_double_input(lin_alg,0.0,100.0);
+        stud.marks_ptr()->set_lin_alg(lin_alg);
+        }
+        break;
+    case 4:
+        {
+        double ml;
+        cout<<"New Machine Learning mark: ";
+        checked_double_input(ml,0.0,100.0);
+        stud.marks_ptr()->set_ml(ml);
+        }
+        break;
+    case 5:
+        return;
+        break;
+    
+    default:
+    cout<<"Invalid input\n";
+        break;
+    }
+
+   }   
+
+
+
+}
 

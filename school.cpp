@@ -1,13 +1,5 @@
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <vector>
-#include <stdexcept>
-#include <algorithm>
-#include "student.h"
-#include "date.h" 
-#include "helper_functions.h"
 #include "school.h"
+
 
 bool comp_name(Student a, Student b){     //helper function to compare to name of two Students
     return a.get_name()<b.get_name();        //used for School::sort_by_name()
@@ -39,6 +31,12 @@ void School::input_data(){   //input loop to add students to student_list from u
     int enroll_month;
     int enroll_day;
     int enroll_year;
+    //Marks variables
+    double computer_science;
+    double calculus;
+    double linear_algebra;
+    double machine_learning;
+
     cout<<"Student "<<i+1<<'\n';
     cout<<"New entry. ID number: "<<id_number<<'\n';
     cin.ignore();
@@ -60,7 +58,15 @@ void School::input_data(){   //input loop to add students to student_list from u
     checked_int_input(enroll_day,1,31);
     cout<<"Year: ";
     checked_int_input(enroll_year,1900,2025);
-    students_list.push_back(Student(id_number,name,major,{Month(birth_month),birth_day,birth_year},{Month(enroll_month),enroll_day,enroll_year}));
+    cout<<"Input marks:\n Computer science: ";
+    checked_double_input(computer_science,0.0,100.0);
+    cout<<"Calculus: "; 
+    checked_double_input(calculus,0.0,100.0);
+    cout<<"Linear algebra: ";
+    checked_double_input(linear_algebra,0.0,100.0);
+    cout<<"Machine learning: ";
+    checked_double_input(machine_learning,0.0,100);
+    students_list.push_back(Student(id_number,name,major,{Month(birth_month),birth_day,birth_year},{Month(enroll_month),enroll_day,enroll_year},{computer_science,calculus,linear_algebra,machine_learning}));
     }
 }
 
@@ -80,12 +86,13 @@ void School::fill_from_file(string file_name)   //fill the students_list vector 
 {
   std::ifstream ifs {file_name};
   while(!ifs.eof()){
-      string id_prefix, name_prefix, birth_prefix, major_prefix, enroll_prefix, end_data;
+      string id_prefix, name_prefix, birth_prefix, major_prefix, enroll_prefix, end_data, marks_prefix;
       int id_number;
       string full_name;
       string major;
       Date birth_date;
       Date enroll_date;
+      Marks marks;
       ifs>>id_prefix>>id_number;
       ifs>>name_prefix>>std::ws;
       getline(ifs,full_name);     //getline because name can consist of multiple names
@@ -93,8 +100,9 @@ void School::fill_from_file(string file_name)   //fill the students_list vector 
       ifs>>major_prefix>>std::ws;
       getline(ifs,major);     //getline because a major name can consist of multiple names
       ifs>>enroll_prefix>>enroll_date;
+      ifs>>marks_prefix>>marks;
       ifs>>end_data;
-      students_list.push_back(Student(id_number,full_name,major,birth_date,enroll_date));
+      students_list.push_back(Student(id_number,full_name,major,birth_date,enroll_date,marks));
   }
 }
 

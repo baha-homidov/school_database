@@ -7,12 +7,13 @@ using namespace std;
 
 
 //parametirized constructor
-Student::Student(int n_id_number,string n_name, string n_major, Date n_birth_date, Date n_enroll_date){
+Student::Student(int n_id_number,string n_name, string n_major, Date n_birth_date, Date n_enroll_date,Marks n_marks){
   id_number=n_id_number;
   name=n_name;
   major=n_major;
   birth_date=n_birth_date;
   enroll_date=n_enroll_date;
+  marks=n_marks;
 }
 
 //------------------------------------------------------------------------------------------------------
@@ -22,7 +23,8 @@ ostream& operator<<(ostream& os, const Student& s){
     <<"Full_name: " <<s.name<<'\n'
     <<"Birth_date: " <<s.birth_date<<'\n'
     <<"Major: "<<s.major<<'\n'
-    <<"Enrollment_date: "<<s.enroll_date<<'\n';
+    <<"Enrollment_date: "<<s.enroll_date<<'\n'
+    <<"Marks: "<<s.marks<<'\n';
     return os;
 }
 
@@ -35,6 +37,7 @@ void Student::symbolic_print(std::ostream& os){
     os<<"Birth date: "; birth_date.symbolic_print(os);
     os<<"\nMajor: "<<major<<'\n';
     os<<"Enrollment date: "; enroll_date.symbolic_print(os);
+    os<<"\nMarks:\n"; marks.print(os);
     os<<'\n';
 }
 
