@@ -2,7 +2,7 @@
 
 Despcription:
 This is a simple student data management system written in C++. The main reason of writing this programm was to practice C++. So far there are several main 
-features: 
+features:   
 1.Storing student data:  
   a) Full name  
   b) Major name  
