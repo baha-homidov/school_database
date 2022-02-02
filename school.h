@@ -17,41 +17,16 @@
 
 using namespace std;
 
-bool comp_name(Student a, Student b);
-
-//*********************************************************************************************************
-
-bool comp_id(Student a, Student b);
-
-//*********************************************************************************************************
-
-class Id_search{    //function class to check if School has a student with similar id number
-   int id_number;
-public:
-   Id_search(int id) : id_number(id) {}
-   bool operator()(const Student& s) const { return id_number==s.get_id(); }
-};
-
-//*********************************************************************************************************
-
-
-class Name_search{    //function class to check if School has a student with similar name
-   string name;
-public:
-   Name_search(string nname) : name(nname) {}
-   bool operator()(const Student& s) const { return name==s.get_name(); }
-};
-
-//*********************************************************************************************************
 
 
 
 
 
-class School{
+
+
+
+struct School{
     vector<Student> students_list;
-
-public:
     vector<Student>::iterator students_list_end(){ return students_list.end(); } 
     void sort_by_name();  //sort the students in student_list by names
     void sort_by_id();    //sort the student in student_list by id numbers

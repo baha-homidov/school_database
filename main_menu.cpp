@@ -148,21 +148,21 @@ void Menu::edit_student(vector<Student>::iterator& s){             //edit Studen
     case 1:
         {
         //edit full name
-        string name;                
+        string new_name;                
         cout<<"Input new name: ";
         cin.ignore();
-        getline(cin,name);
-        stud.edit_name(name);
+        getline(cin,new_name);
+        stud.name=new_name;
         }
         break;
     case 2:
         {    
          //edit major name                     
-        string major;
+        string new_major;
         cout<<"Input new major: ";
         cin.ignore();
-        getline(cin,major);
-        stud.edit_major(major);
+        getline(cin,new_major);
+        stud.major=new_major;
         }
         break;
     case 3: 
@@ -199,7 +199,7 @@ void Menu::edit_birth(Student& stud) //edit birth date of a given Student
         
         cout<<"Year: "; checked_int_input(year,1900,2025);
 
-        stud.edit_birth_date(Date{Month(month),day,year});
+        stud.birth_date=Date{Month(month),day,year};
 }
 
 //-----------------------------------------------------------------
@@ -214,7 +214,7 @@ void Menu::edit_enroll(Student& stud) //edit enroll date of a given Student
         
         cout<<"Year: "; checked_int_input(year,1900,2025);
 
-        stud.edit_enroll_date(Date{Month(month),day,year});
+        stud.enroll_date=Date{Month(month),day,year};
 }
 
 //----------------------------------------------------------------
@@ -227,7 +227,7 @@ void Menu::id_search(School& school, string filename)
         cout<<"Input ID number: ";
         checked_int_input(id_num);
         auto s=school.search_by_id(id_num);
-        if(s==school.students_list_end()) cout<<"Student ID number: "<<id_num<<" not found.\n";   //check if search was successfull
+        if(s==school.students_list.end()) cout<<"Student ID number: "<<id_num<<" not found.\n";   //check if search was successfull
         else {
             while (true)
             {
@@ -278,14 +278,14 @@ void Menu::name_search(School& school, string filename)
         cin.ignore();
         getline(cin,name);
         auto s=school.search_by_name(name);
-        if(s==school.students_list_end()) cout<<"Student name: "<<name<<" not found.\n";   //check if search was successfull
+        if(s==school.students_list.end()) cout<<"Student name: "<<name<<" not found.\n";   //check if search was successfull
         else {
             while (true)
             {
             int input;
             system("clear");
             Student stud=*s;
-            id_num=stud.get_id();
+            id_num=stud.id_number;
             cout<<"Result: \n";
             stud.symbolic_print(cout);
             cout<<"\n------------------\nOptions:\n"
@@ -347,7 +347,7 @@ void Menu::edit_marks(Student& stud){
    while(true){
    int input;
    cout<<"Current marks:\n";
-   stud.marks_ptr()->print(cout);
+   stud.marks.print(cout);
    cout<<"Choose a subject to edit marks:\n"
        <<"[1]Computer science\n"
        <<"[2]Calculus\n"
@@ -363,7 +363,7 @@ void Menu::edit_marks(Student& stud){
         double cs;
         cout<<"New Computer Science mark: ";
         checked_double_input(cs,0.0,100.0);
-        stud.marks_ptr()->set_cs(cs);
+        stud.marks.computer_science=cs;
         }
         break;
     case 2:
@@ -371,7 +371,7 @@ void Menu::edit_marks(Student& stud){
         double calc;
         cout<<"New Calculus mark: ";
         checked_double_input(calc,0.0,100.0);
-        stud.marks_ptr()->set_calculus(calc);
+        stud.marks.calculus=calc;
         }
         break;
     case 3:
@@ -379,7 +379,7 @@ void Menu::edit_marks(Student& stud){
         double lin_alg;
         cout<<"New Linear Algebra mark: ";
         checked_double_input(lin_alg,0.0,100.0);
-        stud.marks_ptr()->set_lin_alg(lin_alg);
+        stud.marks.linear_algebra=lin_alg;
         }
         break;
     case 4:
@@ -387,7 +387,7 @@ void Menu::edit_marks(Student& stud){
         double ml;
         cout<<"New Machine Learning mark: ";
         checked_double_input(ml,0.0,100.0);
-        stud.marks_ptr()->set_ml(ml);
+        stud.marks.machine_learning=ml;
         }
         break;
     case 5:

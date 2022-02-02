@@ -1,15 +1,6 @@
 #include "school.h"
 
 
-bool comp_name(Student a, Student b){     //helper function to compare to name of two Students
-    return a.get_name()<b.get_name();        //used for School::sort_by_name()
-}
-
-//*********************************************************************************************************
-
-bool comp_id(Student a, Student b){     //helper function to compare to name of two Students
-    return a.get_id()<b.get_id();        //used for School::sort_by_name()
-}
 
 //*********************************************************************************************************
 
@@ -61,11 +52,11 @@ void School::input_data(){   //input loop to add students to student_list from u
     cout<<"Input marks:\n Computer science: ";
     checked_double_input(computer_science,0.0,100.0);
     cout<<"Calculus: "; 
-    checked_double_input(calculus,0.0,100.0);
+    checked_double_input(calculus, 0.0, 100.0);
     cout<<"Linear algebra: ";
-    checked_double_input(linear_algebra,0.0,100.0);
+    checked_double_input(linear_algebra, 0.0, 100.0);
     cout<<"Machine learning: ";
-    checked_double_input(machine_learning,0.0,100);
+    checked_double_input(machine_learning, 0.0, 100.0);
     students_list.push_back(Student(id_number,name,major,{Month(birth_month),birth_day,birth_year},{Month(enroll_month),enroll_day,enroll_year},{computer_science,calculus,linear_algebra,machine_learning}));
     }
 }
@@ -122,15 +113,17 @@ void School::print(std::ostream& os)  //print out all the student formatted for 
 //------------------------------------------------------------------------------------------------------------------------
 
 void School::sort_by_name(){   //sort the students in student_list by names
-    if(students_list.size()<2) return; //don't do sorting if students_list's size is smaller than 2
-    sort(students_list.begin(),students_list.end(),comp_name);
+    if(students_list.size() < 2) return; //don't do sorting if students_list's size is smaller than 2
+    sort(students_list.begin(), students_list.end(),
+                                                   [](Student a, Student b) { return a.name<b.name; });
 }
 
 //------------------------------------------------------------------------------------------------------------------------
 
 void School::sort_by_id(){   //sort the student in student_list by id numbers
     if(students_list.size()<2) return; //don't do sorting if students_list's size is smaller than 2
-    sort(students_list.begin(),students_list.end(),comp_id);
+    sort(students_list.begin(),students_list.end(),
+                                                   [](Student a, Student b){return a.id_number<b.id_number;});
 }
 
 
@@ -143,14 +136,16 @@ void School::save_as_file(string filename){   //save data to a text file
 
 vector<Student>::iterator School::search_by_id(int id_num)  //search for student with given id_num in students_list
 {       
-    auto s=  find_if(students_list.begin(),students_list.end(),Id_search(id_num));
+    auto s=  find_if(students_list.begin(), students_list.end(),
+                                            [id_num] (const Student& s) {return s.id_number==id_num;});
     return s;
 }
 
 //------------------------------------------------------------------------------------------------------------
 
 vector<Student>::iterator School::search_by_name(string name){
-    auto s=  find_if(students_list.begin(),students_list.end(),Name_search(name));
+    auto s=  find_if(students_list.begin(), students_list.end(),
+                                             [name] (const Student& s) { return s.name==name;  });
     return s;
 }
 
@@ -158,7 +153,7 @@ vector<Student>::iterator School::search_by_name(string name){
 
 void School::delete_stud(int id_num)  //delete a  student by ID number
 {       
-    auto s=  find_if(students_list.begin(),students_list.end(),Id_search(id_num));
+    auto s=  find_if(students_list.begin(),students_list.end(),[id_num] (const Student& s) {return s.id_number==id_num;});
     if(s!=students_list.end()) {
         students_list.erase(s);
         cout<<"Student ID: "<<id_num<<" deleted.\n";
@@ -178,7 +173,7 @@ double School::av_score(){
     if(students_list.size()==0) return 0;
     double sum=0;
     for(int i=0;i<students_list.size(); ++i){
-       sum+=students_list[i].av_mark();
+       sum+=students_list[i].marks.av_mark();
     }
     return sum/students_list.size();
 }

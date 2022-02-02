@@ -8,13 +8,11 @@ using namespace std;
 
 
 
-class Marks{
-private:
+struct Marks{
    double computer_science=0;
    double calculus=0;
    double linear_algebra=0;
    double machine_learning=0;
-public:
    Marks();  //default constructor
    //setdata fucntions
    void set_cs(double cs){computer_science=cs;}

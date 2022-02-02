@@ -3,22 +3,26 @@
 #include "date.h"
 #include "helper_functions.h"
 #include "student.h"
-using namespace std;
 
 
-//parametirized constructor
-Student::Student(int n_id_number,string n_name, string n_major, Date n_birth_date, Date n_enroll_date,Marks n_marks){
-  id_number=n_id_number;
-  name=n_name;
-  major=n_major;
-  birth_date=n_birth_date;
-  enroll_date=n_enroll_date;
-  marks=n_marks;
-}
+//explicit constructor
+Student::Student(int n_id_number, string n_name, string n_major, Date n_birth_date, Date n_enroll_date, Marks n_marks):
+id_number (n_id_number),
+name (n_name),
+major (n_major),
+birth_date (n_birth_date),
+enroll_date (n_enroll_date),
+marks (n_marks)
+{ }
+
+
+
+
+
 
 //------------------------------------------------------------------------------------------------------
 
-ostream& operator<<(ostream& os, const Student& s){
+std::ostream& operator<<(std::ostream& os, const Student& s){
   os<<"Student_ID: "<<s.id_number<<'\n'
     <<"Full_name: " <<s.name<<'\n'
     <<"Birth_date: " <<s.birth_date<<'\n'
@@ -39,20 +43,12 @@ void Student::symbolic_print(std::ostream& os){
     os<<"Enrollment date: "; enroll_date.symbolic_print(os);
     os<<"\nMarks:\n"; marks.print(os);
     os<<'\n';
-    os<<"Average score: "<<av_mark();
+    os<<"Average score: "<<marks.av_mark()<<'\n';
 }
 
-//------------------------------------------------------------------------------------------------------
 
-int Student::get_id() const{  //function to return Student's id number
-  return id_number;
-}
 
-//------------------------------------------------------------------------------------------------------
 
-string Student::get_name() const{  //function to return Student's full name 
-  return name;
-}
 //************************************************************************************************
 
 
