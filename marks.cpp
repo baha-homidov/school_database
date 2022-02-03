@@ -10,7 +10,7 @@ machine_learning=ml;
 
 //------------------------------------------------------------------------------------------------------
 
-void Marks::print(ostream& os){              //print all the marks with explanations
+void Marks::print(std::ostream& os){              //print all the marks with explanations
     os<<"Computer science: "<<computer_science<<" points.\n"
       <<"Calculus: "<<calculus<<" points.\n"
       <<"Linear algebra: "<<linear_algebra<<" points.\n"
@@ -25,14 +25,14 @@ double Marks::av_mark(){         //calculate the average score
 
 //------------------------------------------------------------------------------------------------------
 
-ostream& operator<<(ostream& os, const Marks& m){        //output all the marks
+std::ostream& operator<<(std::ostream& os, const Marks& m){        //output all the marks
     os<<m.computer_science<<' '<<m.calculus<<' '<<m.linear_algebra<<' '<<m.machine_learning<<'\n';
     return os;
 } 
 
 //------------------------------------------------------------------------------------------------------
 
-istream& operator>>(std::istream& is, Marks& m){
+std::istream& operator>>(std::istream& is, Marks& m){
     double cs;
     double calc;
     double lin_algebra;
@@ -51,9 +51,9 @@ istream& operator>>(std::istream& is, Marks& m){
 
 //------------------------------------------------------------------------------------------------------
 
-Marks::Marks(){
-    computer_science=0;
-    calculus=0;
-    linear_algebra=0;
-    machine_learning=0;
-}
+// Marks::Marks(){
+//     computer_science=0;
+//     calculus=0;
+//     linear_algebra=0;
+//     machine_learning=0;
+// }

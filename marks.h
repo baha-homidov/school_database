@@ -4,25 +4,21 @@
 #include "helper_functions.h"
 
 
-using namespace std;
 
 
 
 struct Marks{
+   Marks(double cs=0,double calc=0,double lin_algebra=0,double ml=0);   //parameterized constructor
+   void print(std::ostream& os);  //print all marks
+   double av_mark();  // average marks
+
    double computer_science=0;
    double calculus=0;
    double linear_algebra=0;
    double machine_learning=0;
-   Marks();  //default constructor
-   //setdata fucntions
-   void set_cs(double cs){computer_science=cs;}
-   void set_calculus(double calc){calculus=calc;}
-   void set_lin_alg(double lin_alg){linear_algebra=lin_alg;}
-   void set_ml(double ml){machine_learning=ml;}
-   //- - - - - - - - - - - - - - - - - - - - - - -
-   void print(ostream& os);  //print all marks
-   double av_mark();  // average marks
-   Marks(double cs,double calc,double lin_algebra,double ml);   //parameterized constructor
-   friend ostream& operator<<(ostream& os, const Marks& m);   
-   friend istream& operator>>(std::istream& is, Marks& m);  
+   
 };
+
+
+std::ostream& operator<<(std::ostream& os, const Marks& m);   
+std::istream& operator>>(std::istream& is, Marks& m);  

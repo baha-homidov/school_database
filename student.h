@@ -6,16 +6,16 @@
 #include "date.h"
 #include "helper_functions.h"
 #include "marks.h"
-using namespace std;
+
 
 
 struct Student
 //class which holds the key info about the student
 {
-     Student(int n_id_number,string n_name, string n_major, Date n_birth_date, Date n_enroll_date, Marks n_marks);    //explicit contructor
+     Student(int n_id_number,std::string n_name, std::string n_major, Date n_birth_date, Date n_enroll_date, Marks n_marks);    //explicit contructor
      void symbolic_print(std::ostream& os);
-     string name;
-     string major;
+     std::string name;
+     std::string major;
      int id_number;
      Date birth_date;  
      Date enroll_date;  //enrollment date

@@ -6,7 +6,7 @@
 
 
 //explicit constructor
-Student::Student(int n_id_number, string n_name, string n_major, Date n_birth_date, Date n_enroll_date, Marks n_marks):
+Student::Student(int n_id_number, std::string n_name, std::string n_major, Date n_birth_date, Date n_enroll_date, Marks n_marks):
 id_number (n_id_number),
 name (n_name),
 major (n_major),

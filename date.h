@@ -6,7 +6,6 @@
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
-using namespace std;
 
 
 
@@ -29,7 +28,7 @@ struct Date{      //Date class to keep dates orginized and check for invalid dat
 };
 //------------------------------------------------------------------------------------------------
 
-std::ostream& operator<<(ostream& os, const Date& d);   
+std::ostream& operator<<(std::ostream& os, const Date& d);   
 std::istream& operator>>(std::istream& is, Date& d);
 
 #endif
