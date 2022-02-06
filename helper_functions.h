@@ -1,4 +1,4 @@
-//file helper_functions.h
+// file helper_functions.h
 #ifndef HELPER_FUNCTIONS_GUARD
 #define HELPER_FUNCTIONS_GUARD
 #include <iostream>
@@ -12,7 +12,5 @@ int checked_int_input(int min, int max);
 double checked_double_input();
 
 double checked_double_input(double min, double max);
-
-
 
 #endif
