@@ -5,31 +5,16 @@
 #include "marks.h"
 using namespace std;
 
-
-
-
-
-int main(){
-  try{
-  
-  Menu::main_menu();
-
-  
-
-
-
-
-  }
-  catch(exception& e)
+int main()
+{
+  try
   {
-  cerr<<"Error: "<<e.what()<<endl;
-  return -1;
+
+    Menu::main_menu();
   }
-
-
+  catch (exception &e)
+  {
+    cerr << "Error: " << e.what() << endl;
+    return -1;
+  }
 }
-
-
-
-
-
