@@ -11,13 +11,13 @@ void School::output_all(std::ostream &os)
     for(std::string subj_name: subject_list)  //first output list of the students
         os << "subject_name: " << subj_name<<'\n';
 
-    os << "---\n"; //breakpoint to divide subject list for student list
+    os << "---"; //breakpoint to divide subject list for student list
 
     for (int i = 0; i < students_list.size(); ++i)
     {
         os << students_list[i];
         if (i < (students_list.size() - 1))
-            os << break_point << '\n';
+            os << '\n'<<break_point ;
     }
 }
 
@@ -45,6 +45,8 @@ void School::fill_from_file(std::string file_name) // fill the students_list vec
             subject_list.push_back(subject_name);
         }
     }
+    if(ifs.peek()==EOF)
+        return; //if file file_name is an empty file to get any input and just exit the function
 
     while (!ifs.eof()) // fill student_list
     {

@@ -33,10 +33,10 @@ std::ostream &operator<<(std::ostream &os, const Marks &m)
     const std::string end_mark = "xxx";
     for (std::pair<std::string, int> p : m.marks_list)
     {
-        os << "subj_name: " << p.first << '\n'
-           << "mark: " << p.second << '\n';
+        os << "\nsubj_name: " << p.first
+           << "\nmark: " << p.second ;
     }
-    os << end_mark << '\n';
+    os <<  '\n'<<end_mark ;
 
     return os;
 }

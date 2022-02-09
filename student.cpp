@@ -18,12 +18,12 @@ Student::Student(int n_id_number, std::string n_name, std::string n_major, Date 
 
 std::ostream &operator<<(std::ostream &os, const Student &s)
 {
-  os << "Student_ID: " << s.id_number << '\n'
+  os << "\nStudent_ID: " << s.id_number << '\n'
      << "Full_name: " << s.name << '\n'
      << "Birth_date: " << s.birth_date << '\n'
      << "Major: " << s.major << '\n'
      << "Enrollment_date: " << s.enroll_date << '\n'
-     << "Mark_list:\n"<<s.marks ;
+     << "Mark_list:"<<s.marks ;
   return os;
 }
 

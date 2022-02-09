@@ -13,7 +13,7 @@ namespace Menu
     void new_data();
     void add_school_entry(std::vector<School_entry> &school_entry);
     void password_check(const School_entry &school_entry);
-    void work_on_file(School school, std::string filename);
+    void work_on_file(std::string filename);
     void edit_student(std::vector<Student>::iterator &s);
     void edit_birth(Student &stud);
     void edit_enroll(Student &stud);

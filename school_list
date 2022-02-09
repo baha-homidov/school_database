@@ -1,5 +1,9 @@
 
-name: abc
-password: abc123
+name: School of Technology
+password: abc1234
 filename: file
+---
+name: School of art
+password: abcd
+filename: file2
 ---

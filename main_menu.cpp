@@ -40,14 +40,17 @@ void Menu::main_menu()
 
 void Menu::show_list()
 { // get school's list from a file
+    const std::string filename = "school_list";
     std::vector<School_entry> school_entries;
-    std::ifstream ifs{"school_list"};
+    std::ifstream ifs{filename};
     while (ifs.peek() != EOF)
     {
         School_entry s;
         ifs >> s;
         school_entries.push_back(s);
     }
+
+    // Make manipulations on the list
     while (true)
     {
 
@@ -63,11 +66,17 @@ void Menu::show_list()
         std::cout << '\n'
                   << '[' << school_entries.size() + 1 << ']' << "Add a new school.\n";
         std::cout << '[' << school_entries.size() + 2 << ']' << "Back\n";
-        std::cout << "'\n\nInput: ";
+        std::cout << "\n\nInput: ";
         input = checked_int_input(1, school_entries.size() + 2);
-        if(input>school_entries.size()){
-            if(input==school_entries.size()+1)
+        if (input > school_entries.size())
+        {
+            if (input == school_entries.size() + 1)
+            {
                 add_school_entry(school_entries);
+                std::ofstream ofs(filename, std::ios_base::app); // append new school_entry to the school_list file
+                ofs << school_entries[school_entries.size() - 1];
+            }
+
             else
                 return;
         }
@@ -91,18 +100,21 @@ void Menu::new_data()
     std::string filename;
     std::cout << "Name of your save file: ";
     std::cin >> filename;
-    work_on_file(new_school, filename);
+    work_on_file(filename);
 }
 
 //------------------------------------------------------------------
 
-void Menu::work_on_file(School school, std::string filename)
+void Menu::work_on_file(std::string filename)
 { // make operations on a given file
+    School school;
+    school.fill_from_file(filename);
+
     while (true)
     {
         int input;
         std::cout << "*****School database******\n\n\n"
-                  << "--Working on file: " << filename << "--\n\n"
+                  << "--Working on School: " << school.name << "--\n\n"
                   << "[1]Show all the students\n"
                   << "[2]Show the average marks\n"
                   << "[3]Sort students by name\n"
@@ -442,7 +454,6 @@ void Menu::input_data(School &school, std::string filename)
         int enroll_day;
         int enroll_year;
         // Marks variables
-        int marks_num;
         Marks marks;
 
         std::cout << "Student " << i + 1 << '\n';
@@ -466,18 +477,16 @@ void Menu::input_data(School &school, std::string filename)
         enroll_day = checked_int_input(1, 31);
         std::cout << "Year: ";
         enroll_year = checked_int_input(1900, 2025);
-        std::cout << "Marks input.\nHow many subject would you like to input?.\nInput: ";
-        marks_num = checked_int_input(1, 100);
-        for (int i = 0; i < marks_num; i++)
+        std::cout << "Adding marks\n\n";
+
+        for (int i = 0; i < school.subject_list.size(); i++)
+        //input score data according to school->subject_list
         {
-            std::string subj_name;
             int score;
-            std::cout << "Input subject name: ";
-            std::cin.ignore();
-            std::getline(std::cin, subj_name);
-            std::cout << "Input score: ";
+            std::cout << "Input " << school.subject_list[i] << " score: \n\n"
+                      << "Input: ";
             score = checked_double_input(0, 100);
-            marks.marks_list.push_back(std::make_pair(subj_name, score));
+            marks.marks_list.push_back(std::make_pair(school.subject_list[i], score));
         }
         school.students_list.push_back(Student(id_number, name, major, {Month(birth_month), birth_day, birth_year}, {Month(enroll_month), enroll_day, enroll_year}, marks));
     }
@@ -486,16 +495,55 @@ void Menu::input_data(School &school, std::string filename)
 
 //---------------------------------------------------------------------------------------------------------------
 
-void Menu::add_school_entry(std::vector<School_entry> &school_entry){
-    return; //TODO: implement this function
+void Menu::add_school_entry(std::vector<School_entry> &school_entry)
+{
+    // Add a new entry into a school_entry
+    // Make a new 'School' get the list of subjects from user input and save it as a a file
+
+    std::string filename;
+    std::string password;
+    School school;
+    int subject_num;
+
+    std::cout << "*****Adding a new School*****\n\n"
+              << "Input you New School's name: \n"
+              << "Input: ";
+    std::cin.ignore();
+    std::getline(std::cin, school.name);
+    std::cout << "Input name your's savefile's name(only one word long):\n"
+              << "Input: ";
+    std::cin >> filename;
+    std::cout << "Input a password to protect your data(In future you'll need to input this password to access this data.)\n"
+              << "Input: ";
+    std::cin >> password;
+    std::cout << "Now you need to input subjects for \"" << school.name << "\"\n"
+              << "How many subjects do you want to have?\n"
+              << "Input: ";
+    subject_num = checked_int_input(1, 40);
+    for (int i = 0; i < subject_num; ++i)
+    {
+        std::string subject_name;
+        std::cout << "Subject " << i + 1 << "'s name\n"
+                  << "Input: ";
+        std::cin.ignore();
+        std::getline(std::cin, subject_name);
+        school.subject_list.push_back(subject_name);
+    }
+    school.save_as_file(filename);
+    school_entry.push_back({school.name, password, filename});
+    std::cout << "School: " << school.name << " is successfully added to the list.\n";
 }
 
 //---------------------------------------------------------------------------------------------------------------
 
-void Menu::password_check(const School_entry &school_entry){
+void Menu::password_check(const School_entry &school_entry)
+{ // function to do a simple passwork check
     std::string attempt;
     std::cout << "Input password for " << school_entry.name << '\n'
               << "Input: ";
     std::cin >> attempt;
-    if
+    if (attempt == school_entry.password)
+        work_on_file(school_entry.filename); // if the password is correct then start working on that file
+    else
+        std::cout << "Incorrect password.\n";
 }
