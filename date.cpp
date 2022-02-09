@@ -37,9 +37,10 @@ std::istream &operator>>(std::istream &is, Date &d)
 {
   int month, day, year;
   is >> month >> day >> year;
+  
   if (month < 1 || month > 12)
-    throw std::invalid_argument("Invalid month index. Month shoould be in 1-12 range \n");
-  if (day < 1 || month > 31)
+    throw std::invalid_argument("Date istream error. Invalid month index. Month shoould be in 1-12 range \n");
+  if (day < 1 || day > 31)
     throw std::invalid_argument("Invalid day index. Day shoould be in 1-31 range.\n");
   if (year < 1900 || year > 2030)
     throw std::invalid_argument("Invalid year index. Year shoould be in range 1900-2030,\n");

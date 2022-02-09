@@ -14,7 +14,9 @@
 
 struct School
 {
-    std::vector<Student> students_list;
+    std::string name;
+    std::vector<Student> students_list;   //TODO: rename to student_list
+    std::vector<std::string> subject_list; //list to hold subjects 
     std::vector<Student>::iterator students_list_end() { return students_list.end(); }
     void sort_by_name();                                             // sort the students in student_list by names
     void sort_by_id();                                               // sort the student in student_list by id numbers

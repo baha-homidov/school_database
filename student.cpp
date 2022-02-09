@@ -23,7 +23,7 @@ std::ostream &operator<<(std::ostream &os, const Student &s)
      << "Birth_date: " << s.birth_date << '\n'
      << "Major: " << s.major << '\n'
      << "Enrollment_date: " << s.enroll_date << '\n'
-     << "Marks: " << s.marks << '\n';
+     << "Mark_list:\n"<<s.marks ;
   return os;
 }
 

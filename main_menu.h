@@ -4,12 +4,15 @@
 #include <iostream>
 #include "school.h"
 #include "helper_functions.h"
+#include "school_entry.h"
 
 namespace Menu
 {
     void main_menu();
-    void import_data();
+    void show_list();
     void new_data();
+    void add_school_entry(std::vector<School_entry> &school_entry);
+    void password_check(const School_entry &school_entry);
     void work_on_file(School school, std::string filename);
     void edit_student(std::vector<Student>::iterator &s);
     void edit_birth(Student &stud);
@@ -20,6 +23,7 @@ namespace Menu
     void delete_student(School &school, std::string filename);
     void clear_all_data(School &school, std::string filename);
     void input_data(School &school, std::string filename);
+    void about();
 };
 
 #endif

@@ -14,17 +14,17 @@ void Menu::main_menu()
     {
         std::cout << "*****School database******\n\n\n"
                   << "--Main Menu--\n\n"
-                  << "[1]Open an existing file\n"
-                  << "[2]Create a new file.\n"
+                  << "[1]Show school's list.\n"
+                  << "[2]About\n"
                   << "[3]Quit\n\nInput: ";
         input = checked_int_input(1, 3);
         switch (input)
         {
         case 1:
-            import_data();
+            show_list();
             break;
         case 2:
-            new_data();
+            std::cout << "***Placeholde***\n";
             break;
         case 3:
             return;
@@ -38,15 +38,50 @@ void Menu::main_menu()
 
 //------------------------------------------------------------------
 
-void Menu::import_data()
-{ // import data from a given file <<filename>>
-    School import_school;
-    std::string filename;
-    std::cout << "Please input file name you want to load: ";
-    std::cin >> filename;
-    import_school.fill_from_file(filename);
+void Menu::show_list()
+{ // get school's list from a file
+    std::vector<School_entry> school_entries;
+    std::ifstream ifs{"school_list"};
+    while (ifs.peek() != EOF)
+    {
+        School_entry s;
+        ifs >> s;
+        school_entries.push_back(s);
+    }
+    while (true)
+    {
 
-    work_on_file(import_school, filename);
+        int input;
+        std::cout << "Please choose a school.\n\n";
+        if (school_entries.size() == 0)
+            std::cout << "****List is empty****\n\n";
+        else
+        {
+            for (int i = 0; i < school_entries.size(); ++i)
+                std::cout << '[' << i + 1 << ']' << school_entries[i].name << '\n';
+        }
+        std::cout << '\n'
+                  << '[' << school_entries.size() + 1 << ']' << "Add a new school.\n";
+        std::cout << '[' << school_entries.size() + 2 << ']' << "Back\n";
+        std::cout << "'\n\nInput: ";
+        input = checked_int_input(1, school_entries.size() + 2);
+        if(input>school_entries.size()){
+            if(input==school_entries.size()+1)
+                add_school_entry(school_entries);
+            else
+                return;
+        }
+        else
+            password_check(school_entries[input - 1]);
+    }
+
+    // School import_school;
+    // std::string filename;
+    // std::cout << "Please input file name you want to load: ";
+    // std::cin >> filename;
+    // import_school.fill_from_file(filename);
+    // std::cout << "\nImport success.\n";
+    // work_on_file(import_school, filename);
 }
 
 //------------------------------------------------------------------
@@ -365,57 +400,22 @@ void Menu::edit_marks(Student &stud)
     while (true)
     {
         int input;
+        double new_score;
         std::cout << "Current marks:\n";
         stud.marks.print(std::cout);
-        std::cout << "Choose a subject to edit marks:\n"
-                  << "[1]Computer science\n"
-                  << "[2]Calculus\n"
-                  << "[3]Linear algebra\n"
-                  << "[4]Machine learning\n"
-                  << "[5]Back\n";
+        std::cout << "Choose subject to edit data:\n";
+        for (int i = 0; i < stud.marks.marks_list.size(); i++)
+            std::cout << '[' << i + 1 << ']' << stud.marks.marks_list[i].first << '\n';
+        std::cout << '[' << stud.marks.marks_list.size() + 1 << ']' << "Back\n";
         std::cout << "Input: ";
         input = checked_int_input(1, 5);
-        switch (input)
+        if (input == stud.marks.marks_list.size() + 1)
+            return; // if input==back
+        else
         {
-        case 1:
-        {
-            double cs;
-            std::cout << "New Computer Science mark: ";
-            cs = checked_double_input(0.0, 100.0);
-            stud.marks.computer_science = cs;
-        }
-        break;
-        case 2:
-        {
-            double calc;
-            std::cout << "New Calculus mark: ";
-            calc = checked_double_input(0.0, 100.0);
-            stud.marks.calculus = calc;
-        }
-        break;
-        case 3:
-        {
-            double lin_alg;
-            std::cout << "New Linear Algebra mark: ";
-            lin_alg = checked_double_input(0.0, 100.0);
-            stud.marks.linear_algebra = lin_alg;
-        }
-        break;
-        case 4:
-        {
-            double ml;
-            std::cout << "New Machine Learning mark: ";
-            ml = checked_double_input(0.0, 100.0);
-            stud.marks.machine_learning = ml;
-        }
-        break;
-        case 5:
-            return;
-            break;
-
-        default:
-            std::cout << "Invalid input\n";
-            break;
+            std::cout << "New " << stud.marks.marks_list[input - 1].first << " mark: ";
+            new_score = checked_double_input(0, 100);
+            stud.marks.marks_list[input - 1].second = new_score;
         }
     }
 }
@@ -442,10 +442,8 @@ void Menu::input_data(School &school, std::string filename)
         int enroll_day;
         int enroll_year;
         // Marks variables
-        double computer_science;
-        double calculus;
-        double linear_algebra;
-        double machine_learning;
+        int marks_num;
+        Marks marks;
 
         std::cout << "Student " << i + 1 << '\n';
         std::cout << "New entry. ID number: " << id_number << '\n';
@@ -468,15 +466,36 @@ void Menu::input_data(School &school, std::string filename)
         enroll_day = checked_int_input(1, 31);
         std::cout << "Year: ";
         enroll_year = checked_int_input(1900, 2025);
-        std::cout << "Input marks:\n Computer science: ";
-        computer_science = checked_double_input(0.0, 100.0);
-        std::cout << "Calculus: ";
-        calculus = checked_double_input(0.0, 100.0);
-        std::cout << "Linear algebra: ";
-        linear_algebra = checked_double_input(0.0, 100.0);
-        std::cout << "Machine learning: ";
-        machine_learning = checked_double_input(0.0, 100.0);
-        school.students_list.push_back(Student(id_number, name, major, {Month(birth_month), birth_day, birth_year}, {Month(enroll_month), enroll_day, enroll_year}, {computer_science, calculus, linear_algebra, machine_learning}));
+        std::cout << "Marks input.\nHow many subject would you like to input?.\nInput: ";
+        marks_num = checked_int_input(1, 100);
+        for (int i = 0; i < marks_num; i++)
+        {
+            std::string subj_name;
+            int score;
+            std::cout << "Input subject name: ";
+            std::cin.ignore();
+            std::getline(std::cin, subj_name);
+            std::cout << "Input score: ";
+            score = checked_double_input(0, 100);
+            marks.marks_list.push_back(std::make_pair(subj_name, score));
+        }
+        school.students_list.push_back(Student(id_number, name, major, {Month(birth_month), birth_day, birth_year}, {Month(enroll_month), enroll_day, enroll_year}, marks));
     }
     school.save_as_file(filename);
+}
+
+//---------------------------------------------------------------------------------------------------------------
+
+void Menu::add_school_entry(std::vector<School_entry> &school_entry){
+    return; //TODO: implement this function
+}
+
+//---------------------------------------------------------------------------------------------------------------
+
+void Menu::password_check(const School_entry &school_entry){
+    std::string attempt;
+    std::cout << "Input password for " << school_entry.name << '\n'
+              << "Input: ";
+    std::cin >> attempt;
+    if
 }

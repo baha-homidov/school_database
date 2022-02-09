@@ -1,15 +1,46 @@
+SCHOOL_NAME: School of psychology
+subj_name: subject 1
+subj_name: subject 2
+subj_name: subject 3
+subj_name: subject 4
+subj_name: subject 5
+subj_name: subject 6
+subj_name: subject 7
+---
 Student_ID: 1
-Full_name: Michael Kurbonov
-Birth_date: 4 12 1993
-Major: Computer Science
-Enrollment_date: 2 28 2008
-Marks: 88 79 71 82
-
+Full_name: asfd asdf
+Birth_date: 12 2 2001
+Major: sadfasfasdfasdf asdf asdf adf asd f
+Enrollment_date: 2 3 1999
+Mark_list:
+subj_name: asdf sfda fasdff adsf sf
+mark: 100
+subj_name: sdfasdf
+mark: 100
+subj_name: sfsdfffff
+mark: 100
+xxx
 ----
 Student_ID: 2
-Full_name: Nasim Jackson
-Birth_date: 5 2 1994
-Major: Electric Engineering 
-Enrollment_date: 3 3 2008
-Marks: 88 77 76 82
-
+Full_name: ffsfsdfsfsdfsdfsfsdf
+Birth_date: 2 3 2004
+Major: fffff
+Enrollment_date: 2 3 2024
+Mark_list:
+subj_name: fffeffef
+mark: 32
+subj_name: dafsdfsdf
+mark: 32
+subj_name: eee
+mark: 22
+xxx
+----
+Student_ID: 3
+Full_name: rrtt
+Birth_date: 2 1 2001
+Major: rerr
+Enrollment_date: 3 2 2001
+Mark_list:
+subj_name: jjdk
+mark: 22
+xxx

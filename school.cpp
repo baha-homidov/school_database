@@ -4,11 +4,20 @@
 
 void School::output_all(std::ostream &os)
 { // output all the students int studets_list to ostream
+    const std::string break_point = "----";
+
+    os << "SCHOOL_NAME: " << name << '\n';
+
+    for(std::string subj_name: subject_list)  //first output list of the students
+        os << "subject_name: " << subj_name<<'\n';
+
+    os << "---\n"; //breakpoint to divide subject list for student list
+
     for (int i = 0; i < students_list.size(); ++i)
     {
         os << students_list[i];
         if (i < (students_list.size() - 1))
-            os << "----\n";
+            os << break_point << '\n';
     }
 }
 
@@ -17,7 +26,27 @@ void School::output_all(std::ostream &os)
 void School::fill_from_file(std::string file_name) // fill the students_list vector from a text file
 {
     std::ifstream ifs{file_name};
-    while (!ifs.eof())
+    std::string name_prefix;
+    ifs >> name_prefix;
+    ifs.ignore();
+    std::getline(ifs, name);
+    while (true)
+    {
+        const std::string break_point = "---";
+        std::string subject_prefix;
+        std::string subject_name;
+        ifs >> subject_prefix;
+        if (subject_prefix == break_point)
+            break;
+        else
+        {
+            ifs.ignore();
+            std::getline(ifs, subject_name);
+            subject_list.push_back(subject_name);
+        }
+    }
+
+    while (!ifs.eof()) // fill student_list
     {
         std::string id_prefix, name_prefix, birth_prefix, major_prefix, enroll_prefix, end_data, marks_prefix;
         int id_number;
@@ -27,14 +56,18 @@ void School::fill_from_file(std::string file_name) // fill the students_list vec
         Date enroll_date;
         Marks marks;
         ifs >> id_prefix >> id_number;
+        if(ifs.fail())   //if there are no student entries exit the function
+            return;
         ifs >> name_prefix >> std::ws;
         std::getline(ifs, full_name); // getline because name can consist of multiple names
         ifs >> birth_prefix >> birth_date;
         ifs >> major_prefix >> std::ws;
         std::getline(ifs, major); // getline because a major name can consist of multiple names
-        ifs >> enroll_prefix >> enroll_date;
+        ifs >> enroll_prefix;
+        ifs >> enroll_date;
         ifs >> marks_prefix >> marks;
         ifs >> end_data;
+
         students_list.push_back(Student(id_number, full_name, major, birth_date, enroll_date, marks));
     }
 }
