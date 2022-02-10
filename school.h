@@ -25,9 +25,9 @@ struct School
     double av_score();                                               // average score of all the students
     void print(std::ostream &os);                                    // print out all the student formatted for readabilty
     void save_as_file(std::string filename);                         // save data to a text file
-    std::vector<Student>::iterator search_by_id(int id_num);         // search for student with given id_num in students_list
+    std::vector<Student>::iterator search_by_id(std::string id_num); // search for student with given id_num in students_list
     std::vector<Student>::iterator search_by_name(std::string name); // search for student with given id_num in students_list
-    void delete_stud(int id_num);                                    // delete a  student by ID number
+    void delete_stud(std::string id_num);                                    // delete a  student by ID number
     void clear();                                                    // delete all the data in students_list
 };
 

@@ -51,7 +51,7 @@ void School::fill_from_file(std::string file_name) // fill the students_list vec
     while (!ifs.eof()) // fill student_list
     {
         std::string id_prefix, name_prefix, birth_prefix, major_prefix, enroll_prefix, end_data, marks_prefix;
-        int id_number;
+        std::string id_number;
         std::string full_name;
         std::string major;
         Date birth_date;
@@ -118,7 +118,7 @@ void School::save_as_file(std::string filename)
 
 //------------------------------------------------------------------------------------------------------------
 
-std::vector<Student>::iterator School::search_by_id(int id_num) // search for student with given id_num in students_list
+std::vector<Student>::iterator School::search_by_id(std::string id_num) // search for student with given id_num in students_list
 {
     auto s = std::find_if(students_list.begin(), students_list.end(),
                           [id_num](const Student &s)
@@ -138,7 +138,7 @@ std::vector<Student>::iterator School::search_by_name(std::string name)
 
 //-------------------------------------------------------------------------------------------------------------
 
-void School::delete_stud(int id_num) // delete a  student by ID number
+void School::delete_stud(std::string id_num) // delete a  student by ID number
 {
     auto s = std::find_if(students_list.begin(), students_list.end(), [id_num](const Student &s)
                           { return s.id_number == id_num; });

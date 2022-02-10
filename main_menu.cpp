@@ -60,7 +60,7 @@ void Menu::show_list()
             std::cout << "****List is empty****\n\n";
         else
         {
-            for (int i = 0; i < school_entries.size(); ++i)
+            for (int i = 0; i < school_entries.size(); ++i) // output School's list as formatted text
                 std::cout << '[' << i + 1 << ']' << school_entries[i].name << '\n';
         }
         std::cout << '\n'
@@ -68,8 +68,8 @@ void Menu::show_list()
         std::cout << '[' << school_entries.size() + 2 << ']' << "Back\n";
         std::cout << "\n\nInput: ";
         input = checked_int_input(1, school_entries.size() + 2);
-        if (input > school_entries.size())
-        {
+        if (input > school_entries.size()) // user doesn't choose a school check for input
+        {                                  // whether to add a new school or leave currrent menu
             if (input == school_entries.size() + 1)
             {
                 add_school_entry(school_entries);
@@ -81,27 +81,11 @@ void Menu::show_list()
                 return;
         }
         else
-            password_check(school_entries[input - 1]);
+            password_check(school_entries[input - 1]); // if user chooses a school go to password_check menu
     }
-
-    // School import_school;
-    // std::string filename;
-    // std::cout << "Please input file name you want to load: ";
-    // std::cin >> filename;
-    // import_school.fill_from_file(filename);
-    // std::cout << "\nImport success.\n";
-    // work_on_file(import_school, filename);
 }
 
-//------------------------------------------------------------------
-void Menu::new_data()
-{ // make a new save file and start working on it
-    School new_school;
-    std::string filename;
-    std::cout << "Name of your save file: ";
-    std::cin >> filename;
-    work_on_file(filename);
-}
+
 
 //------------------------------------------------------------------
 
@@ -280,9 +264,9 @@ void Menu::id_search(School &school, std::string filename)
 // menu for searching a student by ID number and making operations on it
 {
     std::system("clear"); // find a student by ID number
-    int id_num;
+    std::string id_num;
     std::cout << "Input ID number: ";
-    id_num = checked_int_input();
+    std::cin >> id_num;
     auto s = school.search_by_id(id_num);
     if (s == school.students_list.end())
         std::cout << "Student ID number: " << id_num << " not found.\n"; // check if search was successfull
@@ -331,7 +315,7 @@ void Menu::name_search(School &school, std::string filename)
 {
     std::system("clear"); // find a student by ID number
     std::string name;
-    int id_num;
+    std::string id_num;
     std::cout << "Input full name: ";
     std::cin.ignore();
     std::getline(std::cin, name);
@@ -381,9 +365,9 @@ void Menu::name_search(School &school, std::string filename)
 
 void Menu::delete_student(School &school, std::string filename)
 { // delete a student by ID number
-    int id_num;
+    std::string id_num;
     std::cout << "Input student ID number for deletion: ";
-    id_num = checked_int_input();
+    std::cin >> id_num;
     school.delete_stud(id_num);    // delete the student or output "Student doesn't exist" in the case of invalid ID number
     school.save_as_file(filename); // rewrite the save file
 }
@@ -444,7 +428,6 @@ void Menu::input_data(School &school, std::string filename)
 
         std::string name;
         std::string major;
-        int id_number = school.students_list.size() + 1; // initalize ID number according to student_list
         // birth date variables
         int birth_month;
         int birth_day;
@@ -457,7 +440,7 @@ void Menu::input_data(School &school, std::string filename)
         Marks marks;
 
         std::cout << "Student " << i + 1 << '\n';
-        std::cout << "New entry. ID number: " << id_number << '\n';
+        std::cout << "New entry\n";
         std::cin.ignore();
         std::cout << "Input full name: ";
 
@@ -477,10 +460,14 @@ void Menu::input_data(School &school, std::string filename)
         enroll_day = checked_int_input(1, 31);
         std::cout << "Year: ";
         enroll_year = checked_int_input(1900, 2025);
+
+        // Generating ID number according to the added data
+        std::string id_num = std::to_string(rand_num()) + std::to_string(birth_month) + std::to_string(birth_day) + std::to_string(birth_year);
+        std::cout << "Generated ID number: "<<id_num<<'\n';
         std::cout << "Adding marks\n\n";
 
         for (int i = 0; i < school.subject_list.size(); i++)
-        //input score data according to school->subject_list
+        // input score data according to school->subject_list
         {
             int score;
             std::cout << "Input " << school.subject_list[i] << " score: \n\n"
@@ -488,7 +475,7 @@ void Menu::input_data(School &school, std::string filename)
             score = checked_double_input(0, 100);
             marks.marks_list.push_back(std::make_pair(school.subject_list[i], score));
         }
-        school.students_list.push_back(Student(id_number, name, major, {Month(birth_month), birth_day, birth_year}, {Month(enroll_month), enroll_day, enroll_year}, marks));
+        school.students_list.push_back(Student(id_num, name, major, {Month(birth_month), birth_day, birth_year}, {Month(enroll_month), enroll_day, enroll_year}, marks));
     }
     school.save_as_file(filename);
 }
@@ -500,7 +487,7 @@ void Menu::add_school_entry(std::vector<School_entry> &school_entry)
     // Add a new entry into a school_entry
     // Make a new 'School' get the list of subjects from user input and save it as a a file
 
-    std::string filename;
+    std::string filename = "file" + std::to_string(rand_num());
     std::string password;
     School school;
     int subject_num;
@@ -510,9 +497,6 @@ void Menu::add_school_entry(std::vector<School_entry> &school_entry)
               << "Input: ";
     std::cin.ignore();
     std::getline(std::cin, school.name);
-    std::cout << "Input name your's savefile's name(only one word long):\n"
-              << "Input: ";
-    std::cin >> filename;
     std::cout << "Input a password to protect your data(In future you'll need to input this password to access this data.)\n"
               << "Input: ";
     std::cin >> password;

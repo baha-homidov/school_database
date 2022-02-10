@@ -10,7 +10,6 @@ namespace Menu
 {
     void main_menu();
     void show_list();
-    void new_data();
     void add_school_entry(std::vector<School_entry> &school_entry);
     void password_check(const School_entry &school_entry);
     void work_on_file(std::string filename);

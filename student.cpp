@@ -5,7 +5,7 @@
 #include "student.h"
 
 // explicit constructor
-Student::Student(int n_id_number, std::string n_name, std::string n_major, Date n_birth_date, Date n_enroll_date, Marks n_marks) : id_number(n_id_number),
+Student::Student(std::string n_id_number, std::string n_name, std::string n_major, Date n_birth_date, Date n_enroll_date, Marks n_marks) : id_number(n_id_number),
                                                                                                                                    name(n_name),
                                                                                                                                    major(n_major),
                                                                                                                                    birth_date(n_birth_date),

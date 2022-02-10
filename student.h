@@ -10,11 +10,11 @@
 struct Student
 // class which holds the key info about the student
 {
-     Student(int n_id_number, std::string n_name, std::string n_major, Date n_birth_date, Date n_enroll_date, Marks n_marks); // explicit contructor
+     Student(std::string n_id_number, std::string n_name, std::string n_major, Date n_birth_date, Date n_enroll_date, Marks n_marks); // explicit contructor
      void symbolic_print(std::ostream &os);
      std::string name;
      std::string major;
-     int id_number;
+     std::string id_number;
      Date birth_date;
      Date enroll_date; // enrollment date
      Marks marks;

@@ -2,6 +2,12 @@
 #ifndef HELPER_FUNCTIONS_GUARD
 #define HELPER_FUNCTIONS_GUARD
 #include <iostream>
+#include <ctime>
+#include <cstdlib>
+#include <chrono>
+#include <sys/time.h>
+
+int rand_num();
 
 std::string int_to_month(int i);
 

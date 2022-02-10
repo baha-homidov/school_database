@@ -9,9 +9,7 @@ int main()
   try
   {
     Menu::main_menu();
-
-    
-  }
+    }
 
   catch (std::exception &e)
   {
