@@ -3,12 +3,17 @@
 Despcription:
 This is a simple student data management system written in C++. The main reason of writing this programm was to practice C++. So far there are several main 
 features:   
-1.Storing student data:  
+1.Storing 'Student' data:  
   a) Full name  
   b) Major name  
   c) Birth date(as a 'Date' data type)  
   d) Enrollment date(as a 'Date' data type)  
-  e) Marks(so far only 4 subjects)  
+  e) Marks(According to a School's subject list)
+2.Storing separate school datas:  
+  a)'School' can have its own subject list  
+  b)'School' can have its own name  
+  c)'School' has it's own student list  
+  d)'School' data is protected with password  
 2.Saving data as a file and ability to load saved data from the file.  
 3.Handling invalid input from the user(but not perfect).  
 4.Adding entries.  
