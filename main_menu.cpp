@@ -24,7 +24,7 @@ void Menu::main_menu()
             show_list();
             break;
         case 2:
-            std::cout << "***Placeholde***\n";
+            std::cout << "***Student data management***\n\nToy project made by Mirzobakhtiyor Homidov\n";
             break;
         case 3:
             return;
@@ -65,10 +65,13 @@ void Menu::show_list()
         }
         std::cout << '\n'
                   << '[' << school_entries.size() + 1 << ']' << "Add a new school.\n";
+
         std::cout << '[' << school_entries.size() + 2 << ']' << "Back\n";
+
         std::cout << "\n\nInput: ";
+
         input = checked_int_input(1, school_entries.size() + 2);
-        if (input > school_entries.size()) // user doesn't choose a school check for input
+        if (input > school_entries.size()) // if user doesn't choose a school check for input
         {                                  // whether to add a new school or leave currrent menu
             if (input == school_entries.size() + 1)
             {
@@ -85,8 +88,6 @@ void Menu::show_list()
     }
 }
 
-
-
 //------------------------------------------------------------------
 
 void Menu::work_on_file(std::string filename)
@@ -102,25 +103,25 @@ void Menu::work_on_file(std::string filename)
                   << "[1]Show all the students\n"
                   << "[2]Show the average marks\n"
                   << "[3]Sort students by name\n"
-                  << "[4]Sort student by ID number\n"
+                  << "[4]Sort students by ID number\n"
                   << "[5]Search for student by id number\n"
                   << "[6]Search for student by full name\n"
                   << "[7]Add students\n"
                   << "[8]Delete a student\n"
                   << "[9]Clear the database\n"
-                  << "[10]Go back to main menu\n"
+                  << "[10]Go back to school list\n"
                   << "[11]Quit\n"
                   << "\nInput: ";
         input = checked_int_input(1, 11);
         switch (input)
         {
         case 1:
-            std::system("clear");
+            std::system("clear"); // show all the students
             school.print(std::cout);
             break;
         case 2:
-            std::cout << "Average score of all the students in file: " // show the average score
-                      << filename << ": " << school.av_score() << '\n';
+            std::cout << "Average score of all the students in school: " // show the average score
+                      << school.name << ": " << school.av_score() << '\n';
             break;
         case 3:
             school.sort_by_name();         // sort the students by name
@@ -163,7 +164,6 @@ void Menu::work_on_file(std::string filename)
 
 void Menu::edit_student(std::vector<Student>::iterator &s)
 { // edit Student data
-    Student stud = *s;
     while (true)
     {
         int input;
@@ -187,7 +187,7 @@ void Menu::edit_student(std::vector<Student>::iterator &s)
             std::cout << "Input new name: ";
             std::cin.ignore();
             std::getline(std::cin, new_name);
-            stud.name = new_name;
+            (*s).name = new_name;
         }
         break;
         case 2:
@@ -197,23 +197,22 @@ void Menu::edit_student(std::vector<Student>::iterator &s)
             std::cout << "Input new major: ";
             std::cin.ignore();
             std::getline(std::cin, new_major);
-            stud.major = new_major;
+            (*s).major = new_major;
         }
         break;
         case 3:
             // edit birth date
-            edit_birth(stud);
+            edit_birth(*s);
             break;
         case 4:
             // edit enroll date
-            edit_enroll(stud);
+            edit_enroll(*s);
             break;
         case 5:
             // edit marks
-            edit_marks(stud);
+            edit_marks(*s);
             break;
-        case 6: // save changes and exit from the function
-            *s = stud;
+        case 6: // exit from the function
             return;
         default:
             std::cout << "Invalid input\n";
@@ -316,9 +315,11 @@ void Menu::name_search(School &school, std::string filename)
     std::system("clear"); // find a student by ID number
     std::string name;
     std::string id_num;
+
     std::cout << "Input full name: ";
     std::cin.ignore();
     std::getline(std::cin, name);
+    
     auto s = school.search_by_name(name);
     if (s == school.students_list.end())
         std::cout << "Student name: " << name << " not found.\n"; // check if search was successfull
@@ -332,12 +333,14 @@ void Menu::name_search(School &school, std::string filename)
             id_num = stud.id_number;
             std::cout << "Result: \n";
             stud.symbolic_print(std::cout);
+
             std::cout << "\n------------------\nOptions:\n"
                       << "[1]Edit data\n"
                       << "[2]Delete student\n"
                       << "[3]Back\n";
             std::cout << "Input: ";
             input = checked_int_input(1, 3); // take input from user
+            
             switch (input)
             {
             case 1:
@@ -400,13 +403,17 @@ void Menu::edit_marks(Student &stud)
         std::cout << "Current marks:\n";
         stud.marks.print(std::cout);
         std::cout << "Choose subject to edit data:\n";
-        for (int i = 0; i < stud.marks.marks_list.size(); i++)
+        
+        for (int i = 0; i < stud.marks.marks_list.size(); i++)       //print out all the subjects as formatted text
             std::cout << '[' << i + 1 << ']' << stud.marks.marks_list[i].first << '\n';
+
         std::cout << '[' << stud.marks.marks_list.size() + 1 << ']' << "Back\n";
+
         std::cout << "Input: ";
         input = checked_int_input(1, 5);
+        
         if (input == stud.marks.marks_list.size() + 1)
-            return; // if input==back
+            return; // if input==back exit the function
         else
         {
             std::cout << "New " << stud.marks.marks_list[input - 1].first << " mark: ";
@@ -418,7 +425,7 @@ void Menu::edit_marks(Student &stud)
 
 //---------------------------------------------------------------------------------------------------------------
 
-void Menu::input_data(School &school, std::string filename)
+void Menu::input_data(School &school, std::string filename)    //function for adding students to the data base
 {
     int student_num;
     std::cout << "Number of students you want to input: ";
@@ -463,7 +470,7 @@ void Menu::input_data(School &school, std::string filename)
 
         // Generating ID number according to the added data
         std::string id_num = std::to_string(rand_num()) + std::to_string(birth_month) + std::to_string(birth_day) + std::to_string(birth_year);
-        std::cout << "Generated ID number: "<<id_num<<'\n';
+        std::cout << "Generated ID number: " << id_num << '\n';
         std::cout << "Adding marks\n\n";
 
         for (int i = 0; i < school.subject_list.size(); i++)
@@ -487,7 +494,7 @@ void Menu::add_school_entry(std::vector<School_entry> &school_entry)
     // Add a new entry into a school_entry
     // Make a new 'School' get the list of subjects from user input and save it as a a file
 
-    std::string filename = "file" + std::to_string(rand_num());
+    std::string filename = "file" + std::to_string(rand_num());   //generating random name for filename
     std::string password;
     School school;
     int subject_num;
@@ -509,7 +516,8 @@ void Menu::add_school_entry(std::vector<School_entry> &school_entry)
         std::string subject_name;
         std::cout << "Subject " << i + 1 << "'s name\n"
                   << "Input: ";
-        std::cin.ignore();
+        if (i == 0)
+            std::cin.ignore(); // do this if statement to get correct input withour losing any characters
         std::getline(std::cin, subject_name);
         school.subject_list.push_back(subject_name);
     }
@@ -524,7 +532,7 @@ void Menu::password_check(const School_entry &school_entry)
 { // function to do a simple passwork check
     std::string attempt;
     std::cout << "Input password for " << school_entry.name << '\n'
-              << "Input: ";
+              << "\nInput: ";
     std::cin >> attempt;
     if (attempt == school_entry.password)
         work_on_file(school_entry.filename); // if the password is correct then start working on that file

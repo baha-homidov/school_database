@@ -96,11 +96,11 @@ double checked_double_input(double min, double max)
 //*******************************************************************************
 
 int rand_num()
-// very simple radom number generator which returns rendom number in range 1000-10000
+// very simple radom number generator which returns rendom number in range 10000-99999
 {
     long double seed = std::chrono::duration_cast<std::chrono::milliseconds>(
                            std::chrono::system_clock::now().time_since_epoch())
                            .count();
     srand((unsigned)seed);
-    return (rand() % 10000) + 1000;
+    return (rand() % 99999) + 10000;
 }
