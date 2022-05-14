@@ -1,23 +1,23 @@
-#Simple project to practice C++
+# Simple project to practice C++
 
-Despcription:
-This is a simple student data management system written in C++. The main reason of writing this programm was to practice C++. So far there are several main 
-features:   
-1.Storing 'Student' data:  
-  a) Full name  
-  b) Major name  
-  c) Birth date(as a 'Date' data type)  
-  d) Enrollment date(as a 'Date' data type)  
-  e) Marks(According to a School's subject list)
-2.Storing separate school datas:  
-  a)'School' can have its own subject list  
-  b)'School' can have its own name  
-  c)'School' has it's own student list  
-  d)'School' data is protected with password  
-2.Saving data as a file and ability to load saved data from the file.  
-3.Handling invalid input from the user(but not perfect).  
-4.Adding entries.  
-5.Deleting entries.  
-6.Searching via full name or ID number.  
-7.Showing average score of a given student or the whole school.  
-8.Sorting student-list by name or ID number(entries are sorted by ID numbers by default).  
+## Description:
+<p>This is a simple student data management system written in C++. The main reason of writing this programm was to practice C++. So far there are several main features: </p> 
+   
+* Storing 'Student' data:  
+    - Full name  
+    - Major name  
+    - Birth date(as a 'Date' data type)  
+    - Enrollment date(as a 'Date' data type)  
+    - Marks(According to a School's subject list)
+* Storing separate school datas:  
+    - 'School' can have its own subject list  
+    - 'School' can have its own name  
+    - 'School' has it's own student list  
+    - 'School' data is protected with password  
+* Saving data as a file and ability to load saved data from the file.  
+* Handling invalid input from the user(but not perfect).  
+* Adding entries.  
+* Deleting entries.  
+* Searching via full name or ID number.  
+* Showing average score of a given student or the whole school.  
+* Sorting student-list by name or ID number(entries are sorted by ID numbers by default).  
